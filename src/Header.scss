@@ -1,22 +1,75 @@
 .Header {
-    .logo {
-        left: 50%;
-        position: absolute;
-        top: 17px;
-        height: 32px;
-        width: 32px;
-        transform: translate3d(-50%,0,0);
+  .logo {
+    left: 50%;
+    position: absolute;
+    top: 17px;
+    height: 32px;
+    width: 32px;
+    transform: translate3d(-50%, 0, 0);
+  }
+
+  .hamburger {
+    display: inline-block;
+    border-right: 1px solid #e6e6e6;
+    padding: 17px 24px 11px 24px;
+    &-enter-done {
+      img {
+        transform: rotate(-90deg);
+        transition: all 350ms ease;
+      }
     }
-    .hamburger {
-        display: inline-block;
-        border-right: 1px solid #e6e6e6;
-        padding: 17px 24px 11px 24px;
+    &-exit {
+      img {
+        transition: all 350ms ease;
+      }
     }
-    .search {
-        float: right;
-        padding: 17px 24px 11px 24px;
-        border-left: 1px solid #e6e6e6;
+  }
+
+  .search {
+    float: right;
+    padding: 17px 24px 11px 24px;
+    border-left: 1px solid #e6e6e6;
+  }
+
+  .bar {
+    height: 64px;
+  }
+
+  .menu {
+    margin: 30px 0 0 0;
+    //opacity: 0;
+    ul {
+      padding: 0;
+      list-style: none;
+      text-align: center;
+      color: #333;
+      text-transform: uppercase;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    li {
+      padding: 0 0 20px 0;
     }
 
-    height: 64px;
+    &-enter {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    &-enter-active {
+      opacity: 1;
+      transform: translateX(0);
+      transition: opacity 300ms, transform 300ms;
+    }
+
+    &-exit {
+      opacity: 1;
+    }
+
+    &-exit-active {
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 300ms, transform 300ms;
+    }
+  }
 }
