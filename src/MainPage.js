@@ -1,6 +1,8 @@
 import React from 'react';
+import { Route, Switch } from "react-router-dom";
 
 import Article from './Article';
+import Post from './Post';
 
 import { API_POSTS } from './api';
 
@@ -9,32 +11,35 @@ import './MainPage.scss';
 class MainPage extends React.Component {
     constructor() {
         super();
-        this.state = { isLoading: false, data: []}
+        this.state = { data: [] }
     }
 
     async componentDidMount() {
-        this.setState({ isLoading: true });
         const response = await fetch(API_POSTS);
         const json = await response.json();
-        this.setState({ isLoading: false, data: json });
+        this.setState({ data: json });
     }
 
     render() {
-        if (this.state.isLoading) {
-            return <div></div>
-        }
         return (
-            <div className="MainPage-articles-wrapper">
-                {this.state.data.map(d =>
-                <Article
-                    key={d.id}
-                    date={d.date}
-                    title={d.title.rendered}
-                    excerpt={d.excerpt.rendered}
-                    author='Radzio'
-                    img={d._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url}
-                />)}
-            </div>
+            <Switch>
+                <Route exact path="/">
+                    <div className="MainPage-articles-wrapper">
+                        {this.state.data.map(d =>
+                            <Article
+                                key={d.id}
+                                id={d.id}
+                                slug={d.slug}
+                                date={d.date}
+                                title={d.title.rendered}
+                                excerpt={d.excerpt.rendered}
+                                author='Radzio'
+                                img={d._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url}
+                            />)}
+                    </div>
+                </Route>
+                <Route path="/post/:id/" component={Post} />
+            </Switch>
         )
     }
 }

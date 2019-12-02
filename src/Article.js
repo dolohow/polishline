@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 import './Article.scss';
 
@@ -14,16 +15,16 @@ class Article extends React.Component {
         };
         return (
             <article className="Article">
-                <a href="#">
+                <Link to={`post/${this.props.id}/${this.props.slug}`}>
                     <div className="image" style={styles}></div>
                     <div className="article-content">
                         <div className="author">{this.props.author}</div>
-                        <div className="title" dangerouslySetInnerHTML={{__html: this.props.title}}></div>
-                        <div className="excerpt" dangerouslySetInnerHTML={{__html: this.props.excerpt}}></div>
+                        <div className="title" dangerouslySetInnerHTML={{ __html: this.props.title }}></div>
+                        <div className="excerpt" dangerouslySetInnerHTML={{ __html: this.props.excerpt }}></div>
                         <hr />
                         <div className="date">{formatDate(this.props.date)}</div>
                     </div>
-                </a>
+                </Link>
             </article>
         )
     }

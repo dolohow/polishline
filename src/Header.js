@@ -1,5 +1,6 @@
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
+import { Link } from 'react-router-dom';
 
 import './Header.scss';
 
@@ -17,7 +18,9 @@ class Header extends React.Component {
             <header className="Header">
                 <div className="bar">
                     <div className="logo">
-                        <img src="/mountains.svg"></img>
+                        <Link to="/">
+                            <img src="/mountains.svg"></img>
+                        </Link>
                     </div>
                     <CSSTransition timeout={{exit: 200}} classNames="hamburger" in={this.state.showMenu}>
                         <div className="hamburger" onClick={this.toggleMenu} >

@@ -1,0 +1,18 @@
+.Post {
+  &-content {
+    padding: 0 24px;
+  }
+  h1 {
+    font-size: 36px;
+    text-align: center;
+  }
+  p {
+      font-size: 16px;
+      color: #303133;
+  }
+  img {
+      margin-bottom: 30px;
+      height: auto;
+      width: 100%;
+  }
+}
