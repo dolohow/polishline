@@ -17,14 +17,14 @@ class Header extends React.Component {
             <header className="Header">
                 <div className="bar">
                     <div className="logo">
-                        <img src="mountains.svg"></img>
+                        <img src="/mountains.svg"></img>
                     </div>
                     <CSSTransition timeout={{exit: 200}} classNames="hamburger" in={this.state.showMenu}>
                         <div className="hamburger" onClick={this.toggleMenu} >
-                            <img src="hamburger.svg"></img>
+                            <img src="/hamburger.svg"></img>
                         </div></CSSTransition>
                     <div className="search">
-                        <img src="magnifier.svg"></img>
+                        <img src="/magnifier.svg"></img>
                     </div>
                 </div>
                 <CSSTransition classNames="menu" in={this.state.showMenu} timeout={200} unmountOnExit>
