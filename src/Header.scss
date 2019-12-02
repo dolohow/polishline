@@ -1,7 +1,22 @@
-.Header-toggle-menu {
-    width: 76px;
-}
+.Header {
+    .logo {
+        left: 50%;
+        position: absolute;
+        top: 17px;
+        height: 32px;
+        width: 32px;
+        transform: translate3d(-50%,0,0);
+    }
+    .hamburger {
+        display: inline-block;
+        border-right: 1px solid #e6e6e6;
+        padding: 17px 24px 11px 24px;
+    }
+    .search {
+        float: right;
+        padding: 17px 24px 11px 24px;
+        border-left: 1px solid #e6e6e6;
+    }
 
-.Header-search {
-    width: 80px;
+    height: 64px;
 }

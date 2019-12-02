@@ -1,7 +1,4 @@
 .Article {
-    margin: auto;
-    width: 100%;
-    
     a {
         text-decoration: none;
     }
@@ -9,6 +6,10 @@
     hr {
         border: 1px solid orange;
         width: 38px;
+    }
+
+    .image {
+        height: 230px;
     }
 
     .article-content {
