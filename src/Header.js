@@ -13,7 +13,7 @@ class Search extends React.Component {
         super();
         this.state = { data: [] };
         this.searchInput = React.createRef();
-        this.getData = debounce(this.getData, 1000);
+        this.getData = debounce(this.getData, 500);
     }
 
     componentDidMount() {
@@ -29,7 +29,7 @@ class Search extends React.Component {
     handleChange = e => {
         const val = e.target.value;
         if (val.length < 2)
-            return;
+            this.setState({ data: [] });
         this.getData(val)
     }
 
