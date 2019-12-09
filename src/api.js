@@ -6,4 +6,8 @@ function getPostURL(postId) {
     return `${API_BASE_URL}/posts/${postId}?_embed`;
 }
 
-export { API_POSTS, getPostURL };
+function getSearchPosts(search_param) {
+    return `${API_BASE_URL}/posts?search=${search_param}`;
+}
+
+export { API_POSTS, getPostURL, getSearchPosts };
