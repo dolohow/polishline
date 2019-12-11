@@ -1,18 +1,37 @@
 .Post {
   &-content {
     padding: 0 24px;
+    margin: 0 0 25px 0;
   }
+
+  &-social-media {
+    text-align: center;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #161b1b;
+    letter-spacing: 0.05em;
+    padding: 5px;
+  }
+
+  hr {
+    border: 1px solid #f26822;
+    width: 48px;
+  }
+
   h1 {
     font-size: 36px;
     text-align: center;
   }
+
   p {
-      font-size: 16px;
-      color: #303133;
+    font-size: 16px;
+    color: #303133;
   }
+
   img {
-      margin-bottom: 30px;
-      height: auto;
-      width: 100%;
+    margin-bottom: 30px;
+    height: auto;
+    width: 100%;
   }
 }

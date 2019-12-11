@@ -26,6 +26,11 @@ class Post extends React.Component {
                     <h1 dangerouslySetInnerHTML={{ __html: this.state.data.title.rendered }}></h1>
                     <div className="content" dangerouslySetInnerHTML={{ __html: this.state.data.content.rendered }}></div>
                 </div>
+                <hr />
+                <div className="Post-social-media">
+                    Udostępnij
+                </div>
+                <hr />
             </div>
         )
     }
