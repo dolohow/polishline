@@ -4,7 +4,8 @@ import {
 } from "react-router-dom";
 
 import Header from './Header';
-import MainPage from './MainPage'
+import MainPage from './MainPage';
+import Footer from './Footer';
 
 import './App.scss';
 
@@ -13,6 +14,7 @@ function App() {
     <Router>
       <Header />
       <MainPage />
+      <Footer />
 		</Router>
   );
 }
