@@ -11,7 +11,7 @@ import './Header.scss';
 class Search extends React.Component {
     constructor() {
         super();
-        this.state = { data: [] };
+        this.state = { data: [], showInstantResults: true };
         this.searchInput = React.createRef();
         this.getData = debounce(this.getData, 500);
     }
@@ -28,9 +28,27 @@ class Search extends React.Component {
 
     handleChange = e => {
         const val = e.target.value;
-        if (val.length < 2)
+        if (val.length < 3) {
             this.setState({ data: [] });
+            return;
+        }
         this.getData(val)
+    }
+
+    handleBlur = () => {
+        setTimeout(() => {
+            this.setState({ showInstantResults: false });
+        }, 100);
+    }
+
+    handleFocus = () => {
+        this.setState({ showInstantResults: true });
+    }
+
+    handleClick = () => {
+        if (this.props.onLinkClicked) {
+            this.props.onLinkClicked();
+        }
     }
 
     getData = async (val) => {
@@ -43,10 +61,16 @@ class Search extends React.Component {
         return (
             <div className='search-form'>
                 <form onSubmit={this.handleSubmit}>
-                    <input ref={this.searchInput} type="text" onChange={this.handleChange} placeholder="Szukaj" />
-                    <ul>
-                        {this.state.data.map(elem => <li key={elem.id} dangerouslySetInnerHTML={{ __html: elem.title.rendered }}></li>)}
-                    </ul>
+                    <input ref={this.searchInput} type="text" onChange={this.handleChange} onFocus={this.handleFocus} onBlur={this.handleBlur} placeholder="Szukaj" />
+                    {this.state.showInstantResults &&
+                        <ul>
+                            {this.state.data.map(elem => (
+                                <Link onClick={this.handleClick} key={elem.id} to={`/post/${elem.id}/${elem.slug}`}>
+                                    <li dangerouslySetInnerHTML={{ __html: elem.title.rendered }}></li>
+                                </Link>
+                            ))}
+                        </ul>
+                    }
                 </form>
             </div>
         )
@@ -59,13 +83,17 @@ class Header extends React.Component {
         this.state = { showMenu: false, showMenuFromSearch: false, searchInputValue: '' };
     }
 
+    closeMenu = () => {
+        this.setState({ showMenu: false, showMenuFromSearch: false });
+    }
+
     toggleMenu = () => {
         this.setState({ showMenu: !this.state.showMenu });
     }
 
     toggleMenuFromSearch = () => {
         this.toggleMenu();
-        this.setState({ showMenuFromSearch: true })
+        this.setState({ showMenuFromSearch: !this.state.showMenuFromSearch });
     }
 
     render() {
@@ -73,7 +101,7 @@ class Header extends React.Component {
             <header className="Header">
                 <div className="bar">
                     <div className="logo">
-                        <Link to="/">
+                        <Link onClick={this.closeMenu} to="/">
                             <img src="/mountains.svg"></img>
                         </Link>
                     </div>
@@ -88,7 +116,7 @@ class Header extends React.Component {
                 </div>
                 <CSSTransition classNames="menu" in={this.state.showMenu} timeout={200} unmountOnExit>
                     <div className="menu">
-                        <Search focus={this.state.showMenuFromSearch} />
+                        <Search onLinkClicked={this.closeMenu} focus={this.state.showMenuFromSearch} />
                         <div className="links">
                             <ul>
                                 <li>Autorzy</li>

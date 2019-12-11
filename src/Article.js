@@ -15,7 +15,7 @@ class Article extends React.Component {
         };
         return (
             <article className="Article">
-                <Link to={`post/${this.props.id}/${this.props.slug}`}>
+                <Link to={`/post/${this.props.id}/${this.props.slug}`}>
                     <div className="image" style={styles}></div>
                     <div className="article-content">
                         <div className="author">{this.props.author}</div>

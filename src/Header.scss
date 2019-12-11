@@ -54,6 +54,7 @@
       margin-top: 0;
     }
     li {
+      color: #101010;
       border: 1px solid #e6e6e6;
       font-size: 15px;
       height: 54px;
@@ -66,6 +67,9 @@
         color: #f26822;
       }
     }
+      a {
+        text-decoration: none;
+      }
   }
 
   .menu {
