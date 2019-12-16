@@ -1,4 +1,17 @@
 .Header {
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  height: 64px;
+  position: fixed;
+  top: 0;
+  transition: top 0.3s;
+  width: 100%;
+
+  &-hide {
+    top: -64px;
+    box-shadow: unset;
+  }
+
   .logo {
     left: 50%;
     position: absolute;
@@ -32,12 +45,10 @@
   }
 
   .bar {
-    height: 64px;
   }
 
   .search-form {
     padding: 0 24px;
-    margin: 23px 0;
     input {
       box-sizing: border-box;
       font-size: 14px;
@@ -67,13 +78,16 @@
         color: #f26822;
       }
     }
-      a {
-        text-decoration: none;
-      }
+    a {
+      text-decoration: none;
+    }
   }
 
   .menu {
-    margin: 30px 0 0 0;
+    margin: -1px 0 0 0;
+    padding: 30px 0 0 0;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 
     &-enter {
       opacity: 0;

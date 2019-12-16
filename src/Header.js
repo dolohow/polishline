@@ -81,6 +81,7 @@ class Header extends React.Component {
     constructor() {
         super();
         this.state = { showMenu: false, showMenuFromSearch: false, searchInputValue: '' };
+        this.header = React.createRef();
     }
 
     closeMenu = () => {
@@ -96,9 +97,35 @@ class Header extends React.Component {
         this.setState({ showMenuFromSearch: !this.state.showMenuFromSearch });
     }
 
+    componentDidMount = () => {
+        let prevScrollPos = window.pageYOffset;
+
+        const handleScroll = () => {
+            const currentScrollPos = window.pageYOffset;
+
+            if (this.state.showMenu) {
+                return;
+            }
+
+            if (prevScrollPos > currentScrollPos) {
+                this.header.current.classList.remove('Header-hide');
+            } else {
+                this.header.current.classList.add('Header-hide');
+            }
+
+            prevScrollPos = currentScrollPos;
+        };
+
+        window.addEventListener('scroll', handleScroll, true);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
+    }
+
     render() {
         return (
-            <header className="Header">
+            <header ref={this.header} className="Header">
                 <div className="bar">
                     <div className="logo">
                         <Link onClick={this.closeMenu} to="/">
