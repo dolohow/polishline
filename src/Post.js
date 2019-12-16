@@ -1,4 +1,5 @@
 import React from 'react';
+import { Comments } from 'react-facebook';
 
 import { getPostURL } from './api.js';
 
@@ -31,6 +32,7 @@ class Post extends React.Component {
                     Udostępnij
                 </div>
                 <hr />
+                <Comments href={`https://${window.location.hostname}/${this.props.match.params.id}`} />
             </div>
         )
     }

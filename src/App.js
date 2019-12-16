@@ -2,6 +2,7 @@ import React from 'react';
 import {
   BrowserRouter as Router,
 } from "react-router-dom";
+import { FacebookProvider } from 'react-facebook';
 
 import Header from './Header';
 import MainPage from './MainPage';
@@ -12,10 +13,12 @@ import './App.scss';
 function App() {
   return (
     <Router>
-      <Header />
-      <MainPage />
-      <Footer />
-		</Router>
+      <FacebookProvider appId="431500727519846">
+        <Header />
+        <MainPage />
+        <Footer />
+      </FacebookProvider>
+    </Router>
   );
 }
 
