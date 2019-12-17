@@ -18,7 +18,6 @@ class Article extends React.Component {
                 <Link to={`/post/${this.props.id}/${this.props.slug}`}>
                     <div className="image" style={styles}></div>
                     <div className="article-content">
-                        <div className="author">{this.props.author}</div>
                         <div className="title" dangerouslySetInnerHTML={{ __html: this.props.title }}></div>
                         <div className="excerpt" dangerouslySetInnerHTML={{ __html: this.props.excerpt }}></div>
                         <hr />
