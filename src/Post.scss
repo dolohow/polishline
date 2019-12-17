@@ -1,9 +1,53 @@
 .Post {
   margin-top: 64px;
 
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
   &-content {
     padding: 0 24px;
     margin: 0 0 25px 0;
+
+    img {
+      max-width: 100%;
+      height: auto;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    h1 {
+      font-size: 36px;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin-top: 30px;
+    }
+
+    h3 {
+      font-size: 16px;
+    }
+
+    p {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #303133;
+    }
+
+    figure {
+      margin: 0;
+      width: 100%;
+      margin: 0 0 1em 0;
+    }
+
+    figcaption {
+      margin: 0.5em 0 1em 0;
+      font-size: 13px;
+      color: #555d66;
+      text-align: center;
+    }
   }
 
   &-social-media {
@@ -16,24 +60,16 @@
     padding: 5px;
   }
 
+  .excerpt {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #161b1b;
+    margin: 30px 0;
+  }
+
   hr {
     border: 1px solid #f26822;
     width: 48px;
-  }
-
-  h1 {
-    font-size: 36px;
-    text-align: center;
-  }
-
-  p {
-    font-size: 16px;
-    color: #303133;
-  }
-
-  img {
-    margin-bottom: 30px;
-    height: auto;
-    width: 100%;
   }
 }

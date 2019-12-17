@@ -25,6 +25,7 @@ class Post extends React.Component {
                 <img src={this.state.data._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url} />
                 <div className="Post-content">
                     <h1 dangerouslySetInnerHTML={{ __html: this.state.data.title.rendered }}></h1>
+                    <p className="excerpt" dangerouslySetInnerHTML={{ __html: this.state.data.excerpt.rendered }}></p>
                     <div className="content" dangerouslySetInnerHTML={{ __html: this.state.data.content.rendered }}></div>
                 </div>
                 <hr />
