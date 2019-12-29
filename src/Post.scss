@@ -58,6 +58,14 @@
     color: #161b1b;
     letter-spacing: 0.05em;
     padding: 5px;
+    &-icons {
+      width: 40px;
+      left: 50%;
+      position: relative;
+      transform: translate3d(-50%, 0, 0);
+      margin: 19px 0 5px 0;
+      cursor: pointer;
+    }
   }
 
   .excerpt {

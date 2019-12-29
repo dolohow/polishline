@@ -30,7 +30,10 @@ class Post extends React.Component {
                 </div>
                 <hr />
                 <div className="Post-social-media">
-                    Udostępnij
+                    <span>Udostępnij</span>
+                    <div className="Post-social-media-icons">
+                        <a target="_blank" href={`https://facebook.com/sharer/sharer.php?u=${window.location.href}`}><img src="/facebook.svg" /></a>
+                    </div>
                 </div>
                 <hr />
                 <Comments href={`https://${window.location.hostname}/${this.props.match.params.id}`} />
