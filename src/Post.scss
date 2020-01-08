@@ -52,7 +52,7 @@
     blockquote {
       width: calc(100% - 4rem);
       max-width: 58rem;
-      border-color :#D4213D;
+      border-color: #d4213d;
       border-style: solid;
       border-width: 0 0 0 0.2rem;
       padding: 5px 20px;
@@ -60,7 +60,40 @@
       p {
         margin: 0;
         font-style: italic;
+      }
+    }
 
+    .wp-block-gallery {
+      width: 100%;
+      background-color: #303133;
+      color: white;
+      font-size: 14px;
+      figcaption {
+        color: #808285;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      .arrow {
+        width: 13px;
+        height: 24px;
+        position: absolute;
+      }
+      .prev {
+        transform: rotate(-180deg);
+        left: 40px;
+      }
+      .next {
+        right: 40px;
+      }
+      span {
+        color: white;
+        font-weight: bold;
+      }
+      .navigation {
+        text-align: center;
+        padding-bottom: 24px;
       }
     }
   }
