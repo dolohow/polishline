@@ -75,16 +75,18 @@ class Post extends React.Component {
     }
 
     componentDidUpdate() {
-        const data = [];
-        const gallery = document.querySelector('.wp-block-gallery');
-        const galleryFigures = document.querySelectorAll('.wp-block-gallery figure');
-        galleryFigures.forEach(g => {
-            data.push({
-                img: g.children[0].src,
-                caption: g.children[1].innerText,
-            });
-        })
-        ReactDOM.render(<Gallery data={data} />, gallery);
+        const galleries = document.querySelectorAll('.wp-block-gallery');
+        for (let gallery of galleries) {
+            const data = [];
+            const galleriesFigures = gallery.querySelectorAll('figure');
+            galleriesFigures.forEach(g => {
+                data.push({
+                    img: g.children[0].src,
+                    caption: g.children[1].innerText,
+                });
+            })
+            ReactDOM.render(<Gallery data={data} />, gallery);
+        }
     }
 
     render() {
