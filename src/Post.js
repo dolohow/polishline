@@ -11,6 +11,7 @@ class Gallery extends React.Component {
         super(props);
         this.state = { show: [] };
         this.pointer = 0;
+        this.gestures = {x: null, y: null};
     }
 
     componentDidMount() {
@@ -41,9 +42,30 @@ class Gallery extends React.Component {
         this.setVisible(this.pointer);
     }
 
+    handleTouchStart = (e) => {
+        this.gestures.x = e.touches[0].clientX;
+        this.gestures.y = e.touches[0].clientY
+    }
+
+    handleTouchMove = (e) => {
+        const x = e.touches[0].clientX;
+        const y = e.touches[0].clientY;
+        const xDiff = this.gestures.x - x;
+        const yDiff = this.gestures.y - y;
+        if (Math.abs(xDiff) > Math.abs(yDiff)) {
+            if (xDiff > 0) {
+                this.showNext();
+            } else {
+                this.showPrev();
+            }
+        }
+        this.gestures.x = null;
+        this.gestures.y = null;
+    }
+
     render() {
         return (
-            <div>
+            <div onTouchStart={this.handleTouchStart} onTouchMove={this.handleTouchMove}>
                 <ul>
                     {this.props.data.map((d, key) =>
                         this.state.show[key] &&
