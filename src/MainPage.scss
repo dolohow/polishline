@@ -1,5 +1,10 @@
 .MainPage {
-    &-articles-wrapper {
-        margin-top: 64px;
-    }
+  background-color: #e6e6e6;
+
+  &-articles-wrapper {
+    margin: 64px auto 0 auto;
+    display: flex;
+    max-width: 1248px;
+    flex-wrap: wrap;
+  }
 }

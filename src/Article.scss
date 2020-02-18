@@ -1,35 +1,41 @@
 .Article {
-    a {
-        text-decoration: none;
-    }
+  margin: 2px;
+  background-color: white;
+  flex-basis: 24%;
+  min-width: 303px;
+  flex-grow: 1;
 
-    hr {
-        border: 1px solid orange;
-        width: 38px;
-    }
+  a {
+    text-decoration: none;
+  }
 
-    .image {
-        height: 230px;
-    }
+  hr {
+    border: 1px solid orange;
+    width: 38px;
+  }
 
-    .article-content {
-        text-align: center;
-        padding: 24px;
-    }
+  .image {
+    height: 230px;
+  }
 
-    .title {
-        font-size: 18px;
-        color: #161b1b;
-        font-weight: bold;
-    }
+  .article-content {
+    text-align: center;
+    padding: 24px;
+  }
 
-    .excerpt {
-        font-size: 14px;
-        color: #808285;
-    }
+  .title {
+    font-size: 18px;
+    color: #161b1b;
+    font-weight: bold;
+  }
 
-    .date {
-        font-size: 12px;
-        color: #808285
-    }
+  .excerpt {
+    font-size: 14px;
+    color: #808285;
+  }
+
+  .date {
+    font-size: 12px;
+    color: #808285;
+  }
 }

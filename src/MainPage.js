@@ -20,18 +20,20 @@ class MainPage extends React.Component {
 
     render() {
         return (
-            <div className="MainPage-articles-wrapper">
-                {this.state.data.map(d =>
-                    <Article
-                        key={d.id}
-                        id={d.id}
-                        slug={d.slug}
-                        date={d.date}
-                        title={d.title.rendered}
-                        excerpt={d.excerpt.rendered}
-                        author='Radzio'
-                        img={d._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url}
-                    />)}
+            <div className="MainPage">
+                <div className="MainPage-articles-wrapper">
+                    {this.state.data.map(d =>
+                        <Article
+                            key={d.id}
+                            id={d.id}
+                            slug={d.slug}
+                            date={d.date}
+                            title={d.title.rendered}
+                            excerpt={d.excerpt.rendered}
+                            author='Radzio'
+                            img={d._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url}
+                        />)}
+                </div>
             </div>
         )
     }
