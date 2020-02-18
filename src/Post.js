@@ -126,7 +126,10 @@ class Post extends React.Component {
                 <div className="Post-social-media">
                     <span>Udostępnij</span>
                     <div className="Post-social-media-icons">
+                        <a target="_blank" href={`fb-messenger://share?link=${window.location.href}`}><img src="/messenger.svg" /></a>
+                        <a target="_blank" href={`whatsapp://send?text=${window.location.href}`}><img src="/whatsapp.svg" /></a>
                         <a target="_blank" href={`https://facebook.com/sharer/sharer.php?u=${window.location.href}`}><img src="/facebook.svg" /></a>
+                        <a target="_blank" href={`mailto:?&body=${window.location.href}`}><img src="/email.svg" /></a>
                         <a target="_blank" href={`https://twitter.com/home?status=${window.location.href}`}><img src="/twitter.svg" /></a>
                     </div>
                 </div>
