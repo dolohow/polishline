@@ -1,20 +1,29 @@
 .Post {
   margin-top: 64px;
+  max-width: 850px;
+  margin: 0 auto;
 
   img {
     max-width: 100%;
     height: auto;
   }
 
+  hr {
+    border: 1px solid #f26822;
+    width: 48px;
+  }
+
+  .excerpt {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #161b1b;
+    margin: 30px 0;
+  }
+
   &-content {
     padding: 0 24px;
     margin: 0 0 25px 0;
-
-    img {
-      max-width: 100%;
-      height: auto;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    }
 
     h1 {
       font-size: 36px;
@@ -34,6 +43,7 @@
       margin-top: 15px;
       font-size: 16px;
       color: #303133;
+      line-height: 32px;
     }
 
     figure {
@@ -63,37 +73,63 @@
       }
     }
 
+    .wp-block-image img {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      display: block;
+    }
+
     .wp-block-gallery {
       width: 100%;
       background-color: #303133;
       color: white;
       font-size: 14px;
+
+      img {
+        display: block;
+        margin: 0 auto;
+      }
+
       figcaption {
         color: #808285;
       }
+
       ul {
         list-style: none;
         padding: 0;
       }
+
       .arrow {
         width: 13px;
         height: 24px;
-        position: absolute;
       }
+
       .prev {
         transform: rotate(-180deg);
-        left: 40px;
+        float: left;
+        margin-left: 24px;
       }
+
       .next {
-        right: 40px;
+        float: right;
+        margin-right: 24px;
       }
+
       span {
         color: white;
         font-weight: bold;
       }
+
       .navigation {
         text-align: center;
         padding-bottom: 24px;
+      }
+
+      @media screen and (min-width: 768px) {
+        padding-top: 37px;
+
+        img {
+          width: 85%;
+        }
       }
     }
   }
@@ -106,6 +142,7 @@
     color: #161b1b;
     letter-spacing: 0.05em;
     padding: 5px;
+
     a {
       width: 40px;
       position: relative;
@@ -113,18 +150,5 @@
       cursor: pointer;
       display: inline-block;
     }
-  }
-
-  .excerpt {
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    color: #161b1b;
-    margin: 30px 0;
-  }
-
-  hr {
-    border: 1px solid #f26822;
-    width: 48px;
   }
 }
