@@ -49,6 +49,9 @@
 
   .search-form {
     padding: 0 24px;
+    max-width: 577px;
+    margin: 0 auto;
+
     input {
       box-sizing: border-box;
       font-size: 14px;
@@ -74,6 +77,9 @@
       font-weight: bold;
       white-space: nowrap;
       cursor: pointer;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
       &:hover {
         color: #f26822;
       }
