@@ -123,12 +123,21 @@ class Post extends React.Component {
 
         return (
             <div className="Post">
-                <div class="Post-image" style={styles}>
-                    <div class="Post-image-opacity"></div>
-                    <div class="Post-image-content">
+                <div className="Post-image" style={styles}>
+                    <div className="Post-image-opacity"></div>
+                    <div className="Post-image-content">
                         <h1 dangerouslySetInnerHTML={{ __html: this.state.data.title.rendered }}></h1>
                         <hr />
                         <DateComponent date={this.state.data.date} />
+                        <div className="Post-image-tags">
+                            <ul>
+                                {this.state.data._embedded['wp:term'][1].map((d, key) =>
+                                    <li key={key}>
+                                        <a href="#">{d.name}</a>
+                                    </li>
+                                )}
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div className="Post-content">

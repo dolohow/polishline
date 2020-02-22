@@ -33,8 +33,11 @@
     }
 
     &-content {
-      padding: 15px 24px;
+      padding: 0 24px;
       position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+
       h1 {
         font-size: 36px;
         text-align: center;
@@ -46,6 +49,42 @@
         color: #e6e6e6;
         font-size: 14px;
       }
+    }
+
+    &-tags {
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      font-family: sans-serif;
+      font-weight: 900;
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 20px;
+      }
+
+      li {
+        display: inline-block;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 6px;
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        margin: 0 3px;
+
+        &:hover {
+          background-color: #f26822;
+          border-color: #f26822;
+          transition: all 350ms ease;
+        }
+      }
+
+      a {
+        text-decoration: none;
+        color: white;
+      }
+
     }
   }
 
