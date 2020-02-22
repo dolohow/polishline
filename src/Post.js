@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Comments } from 'react-facebook';
 
+import DateComponent from './DateComponent';
+
 import { getPostURL } from './api.js';
 
 import './Post.scss';
@@ -11,7 +13,7 @@ class Gallery extends React.Component {
         super(props);
         this.state = { show: [] };
         this.pointer = 0;
-        this.gestures = {x: null, y: null};
+        this.gestures = { x: null, y: null };
     }
 
     componentDidMount() {
@@ -114,11 +116,22 @@ class Post extends React.Component {
     render() {
         if (!this.state.data)
             return <div></div>
+
+        const styles = {
+            background: `url(${this.state.data._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url}) center center / cover no-repeat`,
+        };
+
         return (
             <div className="Post">
-                <img src={this.state.data._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url} />
+                <div class="Post-image" style={styles}>
+                    <div class="Post-image-opacity"></div>
+                    <div class="Post-image-content">
+                        <h1 dangerouslySetInnerHTML={{ __html: this.state.data.title.rendered }}></h1>
+                        <hr />
+                        <DateComponent date={this.state.data.date} />
+                    </div>
+                </div>
                 <div className="Post-content">
-                    <h1 dangerouslySetInnerHTML={{ __html: this.state.data.title.rendered }}></h1>
                     <p className="excerpt" dangerouslySetInnerHTML={{ __html: this.state.data.excerpt.rendered }}></p>
                     <div className="content" dangerouslySetInnerHTML={{ __html: this.state.data.content.rendered }}></div>
                 </div>

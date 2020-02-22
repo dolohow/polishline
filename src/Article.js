@@ -1,12 +1,9 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-import './Article.scss';
+import DateComponent from './DateComponent';
 
-function formatDate(date) {
-    const d = new Date(date);
-    return `${d.getDate()}.${d.getMonth()}.${d.getFullYear()}`;
-}
+import './Article.scss';
 
 class Article extends React.Component {
     render() {
@@ -21,7 +18,7 @@ class Article extends React.Component {
                         <div className="title" dangerouslySetInnerHTML={{ __html: this.props.title }}></div>
                         <div className="excerpt" dangerouslySetInnerHTML={{ __html: this.props.excerpt }}></div>
                         <hr />
-                        <div className="date">{formatDate(this.props.date)}</div>
+                        <DateComponent date={this.props.date} />
                     </div>
                 </Link>
             </article>
