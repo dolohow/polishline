@@ -9,6 +9,11 @@ import { getPostURL } from './api.js';
 
 import './Post.scss';
 
+async function fetchPost(id) {
+    const response = await fetch(getPostURL(id));
+    return await response.json();
+}
+
 class Gallery extends React.Component {
     constructor(props) {
         super(props);
@@ -94,12 +99,10 @@ class Post extends React.Component {
     }
 
     async componentDidMount() {
-        const response = await fetch(`${getPostURL(this.props.match.params.id)}`);
-        const json = await response.json();
-        this.setState({ data: json });
+        this.setState({ data: await fetchPost(this.props.match.params.id) });
     }
 
-    componentDidUpdate() {
+    async componentDidUpdate(prevProps) {
         const galleries = document.querySelectorAll('.wp-block-gallery');
         for (let gallery of galleries) {
             const data = [];
@@ -111,6 +114,10 @@ class Post extends React.Component {
                 });
             })
             ReactDOM.render(<Gallery data={data} />, gallery);
+        }
+
+        if (prevProps.match.params.id !== this.props.match.params.id) {
+            this.setState({ data: await fetchPost(this.props.match.params.id) });
         }
     }
 
