@@ -2,7 +2,7 @@ import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 
-import { getSearchPosts } from './api';
+import { getSearchPostResults } from './api';
 import { debounce } from './utils'
 
 import './Header.scss';
@@ -52,9 +52,7 @@ class Search extends React.Component {
     }
 
     getData = async (val) => {
-        const response = await fetch(getSearchPosts(val));
-        const json = await response.json();
-        this.setState({ data: json });
+        this.setState({ data: await getSearchPostResults(val) });
     }
 
     render() {

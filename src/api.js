@@ -2,12 +2,17 @@ const API_BASE_URL = 'https://api.polishline.pl/wp-json/wp/v2';
 
 const API_POSTS = `${API_BASE_URL}/posts`;
 
-function getPostURL(postId) {
-    return `${API_BASE_URL}/posts/${postId}?_embed`;
+async function getPosts(query) {
+    const search = query || '?';
+    return await (await fetch(`${API_POSTS}${search}&_embed`)).json();
+};
+
+async function getSearchPostResults(searchParam) {
+    return await (await fetch(`${API_POSTS}?search=${searchParam}`)).json();
 }
 
-function getSearchPosts(search_param) {
-    return `${API_BASE_URL}/posts?search=${search_param}`;
+async function getPost(postId) {
+    return await (await fetch(`${API_POSTS}/${postId}?_embed`)).json();
 }
 
-export { API_POSTS, getPostURL, getSearchPosts };
+export { getPosts, getPost, getSearchPostResults };

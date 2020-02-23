@@ -2,15 +2,9 @@ import React from 'react';
 
 import Article from './Article';
 
-import { API_POSTS } from './api';
+import { getPosts } from './api';
 
 import './MainPage.scss';
-
-async function fetchPosts(query) {
-    const search = query || '?';
-    const response = await fetch(`${API_POSTS}${search}&_embed`);
-    return await response.json();
-};
 
 class MainPage extends React.Component {
     constructor() {
@@ -19,12 +13,12 @@ class MainPage extends React.Component {
     }
 
     async componentDidMount() {
-        this.setState({ data: await fetchPosts(this.props.location.search) });
+        this.setState({ data: await getPosts(this.props.location.search) });
     }
 
     async componentDidUpdate(prevProps) {
         if (prevProps.location.search !== this.props.location.search) {
-            this.setState({ data: await fetchPosts(this.props.location.search) });
+            this.setState({ data: await getPosts(this.props.location.search) });
         }
     }
 

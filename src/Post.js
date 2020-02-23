@@ -5,14 +5,10 @@ import { Comments } from 'react-facebook';
 
 import DateComponent from './DateComponent';
 
-import { getPostURL } from './api.js';
+import { getPost } from './api.js';
 
 import './Post.scss';
 
-async function fetchPost(id) {
-    const response = await fetch(getPostURL(id));
-    return await response.json();
-}
 
 class Gallery extends React.Component {
     constructor(props) {
@@ -99,7 +95,7 @@ class Post extends React.Component {
     }
 
     async componentDidMount() {
-        this.setState({ data: await fetchPost(this.props.match.params.id) });
+        this.setState({ data: await getPost(this.props.match.params.id) });
     }
 
     async componentDidUpdate(prevProps) {
@@ -117,7 +113,7 @@ class Post extends React.Component {
         }
 
         if (prevProps.match.params.id !== this.props.match.params.id) {
-            this.setState({ data: await fetchPost(this.props.match.params.id) });
+            this.setState({ data: await getPost(this.props.match.params.id) });
         }
     }
 
