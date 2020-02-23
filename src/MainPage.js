@@ -27,7 +27,7 @@ class MainPage extends React.Component {
 
         return (
             <div className="MainPage">
-                {tagName && <div className="MainPage-filter">{tagName}</div>}
+                {tagName && <div className="MainPage-filter">#{tagName}</div>}
                 <div className="MainPage-articles-wrapper">
                     {this.state.data.map(d =>
                         <Article
