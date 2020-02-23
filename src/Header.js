@@ -129,16 +129,16 @@ class Header extends React.Component {
                 <div className="bar">
                     <div className="logo">
                         <Link onClick={this.closeMenu} to="/">
-                            <img src="/mountains.svg"></img>
+                            <img alt="logo" src="/mountains.svg"></img>
                         </Link>
                     </div>
                     <CSSTransition timeout={{ exit: 200 }} classNames="hamburger" in={this.state.showMenu}>
                         <div className="hamburger" onClick={this.toggleMenu} >
-                            <img src="/hamburger.svg"></img>
+                            <img alt="menu" src="/hamburger.svg"></img>
                         </div>
                     </CSSTransition>
                     <div onClick={this.toggleMenuFromSearch} className="search">
-                        <img src="/magnifier.svg"></img>
+                        <img alt="szukaj" src="/magnifier.svg"></img>
                     </div>
                 </div>
                 <CSSTransition classNames="menu" in={this.state.showMenu} timeout={200} unmountOnExit>

@@ -77,9 +77,9 @@ class Gallery extends React.Component {
                         </li>)}
                 </ul>
                 <div className="navigation">
-                    <img onClick={this.showPrev} className="arrow prev" src="/arrow.svg" />
+                    <img alt="poprzedni obrazek" onClick={this.showPrev} className="arrow prev" src="/arrow.svg" />
                     <span>{this.pointer + 1} / {this.props.data.length}</span>
-                    <img onClick={this.showNext} className="arrow next" src="/arrow.svg" />
+                    <img alt="następny obrazek" onClick={this.showNext} className="arrow next" src="/arrow.svg" />
                 </div>
             </div>
         )
@@ -148,11 +148,21 @@ class Post extends React.Component {
                 <div className="Post-social-media">
                     <span>Udostępnij</span>
                     <div className="Post-social-media-icons">
-                        <a target="_blank" href={`fb-messenger://share?link=${window.location.href}`}><img src="/messenger.svg" /></a>
-                        <a target="_blank" href={`whatsapp://send?text=${window.location.href}`}><img src="/whatsapp.svg" /></a>
-                        <a target="_blank" href={`https://facebook.com/sharer/sharer.php?u=${window.location.href}`}><img src="/facebook.svg" /></a>
-                        <a target="_blank" href={`mailto:?&body=${window.location.href}`}><img src="/email.svg" /></a>
-                        <a target="_blank" href={`https://twitter.com/home?status=${window.location.href}`}><img src="/twitter.svg" /></a>
+                        <a target="_blank" rel="noopener noreferrer" href={`fb-messenger://share?link=${window.location.href}`}>
+                            <img alt="messenger" src="/messenger.svg" />
+                        </a>
+                        <a target="_blank" rel="noopener noreferrer" href={`whatsapp://send?text=${window.location.href}`}>
+                            <img alt="whatsapp" src="/whatsapp.svg" />
+                        </a>
+                        <a target="_blank" rel="noopener noreferrer" href={`https://facebook.com/sharer/sharer.php?u=${window.location.href}`}>
+                            <img alt="facebook" src="/facebook.svg" />
+                        </a>
+                        <a target="_blank" rel="noopener noreferrer" href={`mailto:?&body=${window.location.href}`}>
+                            <img alt="email" src="/email.svg" />
+                        </a>
+                        <a target="_blank" rel="noopener noreferrer" href={`https://twitter.com/home?status=${window.location.href}`}>
+                            <img alt="twitter" src="/twitter.svg" />
+                        </a>
                     </div>
                 </div>
                 <hr />
