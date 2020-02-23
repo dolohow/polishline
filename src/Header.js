@@ -126,20 +126,18 @@ class Header extends React.Component {
     render() {
         return (
             <header ref={this.header} className="Header">
-                <div className="bar">
-                    <div className="logo">
-                        <Link onClick={this.closeMenu} to="/">
-                            <img alt="logo" src="/mountains.svg"></img>
-                        </Link>
+                <div className="logo">
+                    <Link onClick={this.closeMenu} to="/">
+                        <img alt="logo" src="/mountains.svg"></img>
+                    </Link>
+                </div>
+                <CSSTransition timeout={{ exit: 200 }} classNames="hamburger" in={this.state.showMenu}>
+                    <div className="hamburger" onClick={this.toggleMenu} >
+                        <img alt="menu" src="/hamburger.svg"></img>
                     </div>
-                    <CSSTransition timeout={{ exit: 200 }} classNames="hamburger" in={this.state.showMenu}>
-                        <div className="hamburger" onClick={this.toggleMenu} >
-                            <img alt="menu" src="/hamburger.svg"></img>
-                        </div>
-                    </CSSTransition>
-                    <div onClick={this.toggleMenuFromSearch} className="search">
-                        <img alt="szukaj" src="/magnifier.svg"></img>
-                    </div>
+                </CSSTransition>
+                <div onClick={this.toggleMenuFromSearch} className="search">
+                    <img alt="szukaj" src="/magnifier.svg"></img>
                 </div>
                 <CSSTransition classNames="menu" in={this.state.showMenu} timeout={200} unmountOnExit>
                     <div className="menu">
