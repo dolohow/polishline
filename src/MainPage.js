@@ -6,6 +6,12 @@ import { API_POSTS } from './api';
 
 import './MainPage.scss';
 
+async function fetchPosts(query) {
+    const search = query || '?';
+    const response = await fetch(`${API_POSTS}${search}&_embed`);
+    return await response.json();
+};
+
 class MainPage extends React.Component {
     constructor() {
         super();
@@ -13,14 +19,21 @@ class MainPage extends React.Component {
     }
 
     async componentDidMount() {
-        const response = await fetch(API_POSTS);
-        const json = await response.json();
-        this.setState({ data: json });
+        this.setState({ data: await fetchPosts(this.props.location.search) });
+    }
+
+    async componentDidUpdate(prevProps) {
+        if (prevProps.location.search !== this.props.location.search) {
+            this.setState({ data: await fetchPosts(this.props.location.search) });
+        }
     }
 
     render() {
+        const tagName = this.props.location.state?.tag;
+
         return (
             <div className="MainPage">
+                {tagName && <div className="MainPage-filter">{tagName}</div>}
                 <div className="MainPage-articles-wrapper">
                     {this.state.data.map(d =>
                         <Article

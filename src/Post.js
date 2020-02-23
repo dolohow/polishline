@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
 import { Comments } from 'react-facebook';
 
 import DateComponent from './DateComponent';
@@ -133,7 +134,13 @@ class Post extends React.Component {
                             <ul>
                                 {this.state.data._embedded['wp:term'][1].map((d, key) =>
                                     <li key={key}>
-                                        <a href="#">{d.name}</a>
+                                        <Link to={{
+                                            pathname: "/",
+                                            search: `tags=${d.id}`,
+                                            state: {
+                                                tag: d.name
+                                            }
+                                        }}>{d.name}</Link>
                                     </li>
                                 )}
                             </ul>

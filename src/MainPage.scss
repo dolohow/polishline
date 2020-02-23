@@ -1,10 +1,21 @@
 .MainPage {
   background-color: #e6e6e6;
+  margin-top: 64px;
 
   &-articles-wrapper {
-    margin: 64px auto 0 auto;
+    margin: 0 auto;
     display: flex;
     max-width: 1248px;
     flex-wrap: wrap;
+  }
+
+  &-filter {
+    font-size: 10vw;
+    text-transform: uppercase;
+    text-align: center;
+    background-color: white;
+    font-weight: 500;
+    font-family: sans-serif;
+    padding: 30px 5px;
   }
 }
