@@ -83,19 +83,19 @@ class Post extends React.Component {
                     <span>Udostępnij</span>
                     <div className="Post-social-media-icons">
                         <a target="_blank" rel="noopener noreferrer" href={`fb-messenger://share?link=${window.location.href}`}>
-                            <img alt="messenger" src="/messenger.svg" />
+                            <img alt="messenger" src="/social/messenger.svg" />
                         </a>
                         <a target="_blank" rel="noopener noreferrer" href={`whatsapp://send?text=${window.location.href}`}>
-                            <img alt="whatsapp" src="/whatsapp.svg" />
+                            <img alt="whatsapp" src="/social/whatsapp.svg" />
                         </a>
                         <a target="_blank" rel="noopener noreferrer" href={`https://facebook.com/sharer/sharer.php?u=${window.location.href}`}>
-                            <img alt="facebook" src="/facebook.svg" />
+                            <img alt="facebook" src="/social/facebook.svg" />
                         </a>
                         <a target="_blank" rel="noopener noreferrer" href={`mailto:?&body=${window.location.href}`}>
-                            <img alt="email" src="/email.svg" />
+                            <img alt="email" src="/social/email.svg" />
                         </a>
                         <a target="_blank" rel="noopener noreferrer" href={`https://twitter.com/home?status=${window.location.href}`}>
-                            <img alt="twitter" src="/twitter.svg" />
+                            <img alt="twitter" src="/social/twitter.svg" />
                         </a>
                     </div>
                 </div>
