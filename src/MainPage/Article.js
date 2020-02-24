@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-import DateComponent from './DateComponent';
+import DateComponent from '../DateComponent';
 
 import './Article.scss';
 

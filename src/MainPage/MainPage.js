@@ -2,7 +2,7 @@ import React from 'react';
 
 import Article from './Article';
 
-import { getPosts } from './api';
+import { getPosts } from '../api';
 
 import './MainPage.scss';
 

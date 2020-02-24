@@ -139,61 +139,6 @@
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
       display: block;
     }
-
-    .wp-block-gallery {
-      width: 100%;
-      background-color: #303133;
-      color: white;
-      font-size: 14px;
-
-      img {
-        display: block;
-        margin: 0 auto;
-      }
-
-      figcaption {
-        color: #808285;
-      }
-
-      ul {
-        list-style: none;
-        padding: 0;
-      }
-
-      .arrow {
-        width: 13px;
-        height: 24px;
-      }
-
-      .prev {
-        transform: rotate(-180deg);
-        float: left;
-        margin-left: 24px;
-      }
-
-      .next {
-        float: right;
-        margin-right: 24px;
-      }
-
-      span {
-        color: white;
-        font-weight: bold;
-      }
-
-      .navigation {
-        text-align: center;
-        padding-bottom: 24px;
-      }
-
-      @media screen and (min-width: 768px) {
-        padding-top: 37px;
-
-        img {
-          width: 85%;
-        }
-      }
-    }
   }
 
   &-social-media {

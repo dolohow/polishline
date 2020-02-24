@@ -5,10 +5,10 @@ import {
 } from "react-router-dom";
 import { FacebookProvider } from 'react-facebook';
 
-import Header from './Header';
-import MainPage from './MainPage';
-import Footer from './Footer';
-import Post from './Post';
+import Header from './Header/Header';
+import MainPage from './MainPage/MainPage';
+import Footer from './Footer/Footer';
+import Post from './Post/Post';
 
 import './App.scss';
 
