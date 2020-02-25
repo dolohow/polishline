@@ -6,5 +6,10 @@ function debounce(callback, timeout) {
     }
 }
 
+function getThumbnailUrlFromFullUrl(imageUrl) {
+    const extension = imageUrl.substr(imageUrl.lastIndexOf('.'))
+    return imageUrl.substr(0, imageUrl.lastIndexOf('.')) + '-150x150' + extension;
+}
 
-export { debounce };
+
+export { debounce, getThumbnailUrlFromFullUrl };

@@ -1,8 +1,15 @@
 @import '../constants';
+@import "~react-image-gallery/styles/scss/image-gallery.scss";
 
 .Post {
   max-width: 850px;
   margin: 64px auto 0 auto;
+
+  .hide-on-mobile {
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
+  }
 
   img {
     max-width: 100%;

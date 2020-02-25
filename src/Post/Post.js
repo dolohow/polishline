@@ -5,9 +5,10 @@ import { Comments } from 'react-facebook';
 
 import DateComponent from '../DateComponent';
 
-import Gallery from './Gallery';
+import ImageGallery from 'react-image-gallery';
 
-import { getPost } from '../api.js';
+import { getThumbnailUrlFromFullUrl } from '../utils';
+import { getPost } from '../api';
 
 import './Post.scss';
 
@@ -29,11 +30,14 @@ class Post extends React.Component {
             const galleriesFigures = gallery.querySelectorAll('figure');
             galleriesFigures.forEach(g => {
                 data.push({
-                    img: g.children[0].src,
-                    caption: g.children[1].innerText,
+                    original: g.children[0].dataset.fullUrl,
+                    description: g.children[1].textContent,
+                    srcSet: g.children[0].srcset,
+                    thumbnail: getThumbnailUrlFromFullUrl(g.children[0].dataset.fullUrl),
+                    thumbnailClass: 'hide-on-mobile',
                 });
             })
-            ReactDOM.render(<Gallery data={data} />, gallery);
+            ReactDOM.render(<ImageGallery items={data} />, gallery);
         }
 
         if (prevProps.match.params.id !== this.props.match.params.id) {
