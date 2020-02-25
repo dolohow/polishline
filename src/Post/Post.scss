@@ -1,3 +1,5 @@
+@import '../constants';
+
 .Post {
   max-width: 850px;
   margin: 64px auto 0 auto;
@@ -8,7 +10,7 @@
   }
 
   hr {
-    border: 1px solid #f26822;
+    border: 1px solid $primary-color;
     width: 48px;
   }
 
@@ -74,8 +76,8 @@
         margin: 3px;
 
         &:hover {
-          background-color: #f26822;
-          border-color: #f26822;
+          background-color: $primary-color;
+          border-color: $primary-color;
           transition: all 350ms ease;
         }
       }
@@ -124,7 +126,7 @@
     blockquote {
       width: calc(100% - 4rem);
       max-width: 58rem;
-      border-color: #d4213d;
+      border-color: $primary-color;
       border-style: solid;
       border-width: 0 0 0 0.2rem;
       padding: 5px 20px;

@@ -10,8 +10,6 @@ import MainPage from './MainPage/MainPage';
 import Footer from './Footer/Footer';
 import Post from './Post/Post';
 
-import './App.scss';
-
 function App() {
   return (
     <Router>
