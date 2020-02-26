@@ -1,0 +1,17 @@
+.Loader {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  background-color: white;
+
+  &-content {
+    position: relative;
+    transform: translateY(-50%);
+    top: 50%;
+    width: 100%;
+    text-align: center;
+  }
+}

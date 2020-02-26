@@ -3,6 +3,7 @@ import React from 'react';
 import Article from './Article';
 
 import { getPosts } from '../api';
+import Loader from '../Loader';
 
 import './MainPage.scss';
 
@@ -24,6 +25,9 @@ class MainPage extends React.Component {
 
     render() {
         const tagName = this.props.location.state?.tag;
+
+        if (!this.state.data.length)
+            return <Loader />;
 
         return (
             <div className="MainPage">

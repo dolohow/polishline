@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { Comments } from 'react-facebook';
+import ImageGallery from 'react-image-gallery';
+
 
 import DateComponent from '../DateComponent';
-
-import ImageGallery from 'react-image-gallery';
+import Loader from '../Loader';
 
 import { getThumbnailUrlFromFullUrl } from '../utils';
 import { getPost } from '../api';
@@ -47,7 +48,7 @@ class Post extends React.Component {
 
     render() {
         if (!this.state.data)
-            return <div></div>
+            return <Loader />;
 
         const styles = {
             background: `url(${this.state.data._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url}) center center / cover no-repeat`,
