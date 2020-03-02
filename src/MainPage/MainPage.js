@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
+import { useParams } from 'react-router-dom';
 import { gql } from 'apollo-boost';
 
 import Article from './Article';
@@ -28,15 +29,15 @@ const GET_ALL_POSTS = gql`
     }
 `;
 
-function MainPage({ location }) {
-    const { loading, data } = useQuery(GET_ALL_POSTS, { variables: { tag: location.state?.tag } });
+function MainPage() {
+    const { tag } = useParams();
+    const { loading, data } = useQuery(GET_ALL_POSTS, { variables: { tag } });
 
     if (loading) return <Loader />;
-    const tagName = location.state?.tag;
 
     return (
         <div className="MainPage">
-            {tagName && <div className="MainPage-filter">#{tagName}</div>}
+            {tag && <div className="MainPage-filter">#{tag}</div>}
             <div className="MainPage-articles-wrapper">
                 {data.posts.edges.map(d =>
                     <Article key={d.node.id} data={d.node} />

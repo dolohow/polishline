@@ -61,7 +61,7 @@ class Search extends React.Component {
                     {this.state.showInstantResults &&
                         <ul>
                             {this.state.data.map(elem => (
-                                <Link onClick={this.handleClick} key={elem.id} to={`/post/${elem.id}/${elem.slug}`}>
+                                <Link onClick={this.handleClick} key={elem.id} to={`/${elem.slug}`}>
                                     <li dangerouslySetInnerHTML={{ __html: elem.title.rendered }}></li>
                                 </Link>
                             ))}

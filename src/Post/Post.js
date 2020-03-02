@@ -1,30 +1,44 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Comments } from 'react-facebook';
 import ImageGallery from 'react-image-gallery';
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
 
 
 import DateComponent from '../DateComponent';
 import Loader from '../Loader';
 
 import { getThumbnailUrlFromFullUrl } from '../utils';
-import { getPost } from '../api';
 
 import './Post.scss';
 
-
-class Post extends React.Component {
-    constructor() {
-        super();
-        this.state = { data: null };
+const GET_POST = gql`
+    query post($slug: ID!) {
+        post(id: $slug, idType: SLUG) {
+            id
+            title(format: RENDERED)
+            excerpt(format: RENDERED)
+            content
+            date
+            tags {
+                nodes {
+                    name
+                }
+            }
+            featuredImage {
+                mediaItemUrl
+            }
+        }
     }
+`;
 
-    async componentDidMount() {
-        this.setState({ data: await getPost(this.props.match.params.id) });
-    }
+function Post() {
+    const { slug } = useParams();
+    const { loading, data } = useQuery(GET_POST, { variables: { slug } });
 
-    async componentDidUpdate(prevProps) {
+    useEffect(() => {
         const galleries = document.querySelectorAll('.wp-block-gallery');
         for (let gallery of galleries) {
             const data = [];
@@ -40,75 +54,62 @@ class Post extends React.Component {
             })
             ReactDOM.render(<ImageGallery items={data} />, gallery);
         }
+    });
 
-        if (prevProps.match.params.id !== this.props.match.params.id) {
-            this.setState({ data: await getPost(this.props.match.params.id) });
-        }
-    }
+    if (loading) return <Loader />;
 
-    render() {
-        if (!this.state.data)
-            return <Loader />;
+    const styles = {
+        background: `url(${data.post.featuredImage.mediaItemUrl}) center center / cover no-repeat`,
+    };
 
-        const styles = {
-            background: `url(${this.state.data._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url}) center center / cover no-repeat`,
-        };
-
-        return (
-            <div className="Post">
-                <div className="Post-image" style={styles}>
-                    <div className="Post-image-opacity"></div>
-                    <div className="Post-image-content">
-                        <h1 dangerouslySetInnerHTML={{ __html: this.state.data.title.rendered }}></h1>
-                        <hr />
-                        <DateComponent date={this.state.data.date} />
-                        <div className="Post-image-tags">
-                            <ul>
-                                {this.state.data._embedded['wp:term'][1].map((d, key) =>
-                                    <li key={key}>
-                                        <Link to={{
-                                            pathname: "/",
-                                            search: `tags=${d.id}`,
-                                            state: {
-                                                tag: d.name
-                                            }
-                                        }}>{d.name}</Link>
-                                    </li>
-                                )}
-                            </ul>
-                        </div>
+    return (
+        <div className="Post">
+            <div className="Post-image" style={styles}>
+                <div className="Post-image-opacity"></div>
+                <div className="Post-image-content">
+                    <h1 dangerouslySetInnerHTML={{ __html: data.post.title }}></h1>
+                    <hr />
+                    <DateComponent date={data.post.date} />
+                    <div className="Post-image-tags">
+                        <ul>
+                            {data.post.tags.nodes.map((d, key) =>
+                                <li key={key}>
+                                    <Link to={`/tag/${d.name}`}>{d.name}</Link>
+                                </li>
+                            )}
+                        </ul>
                     </div>
                 </div>
-                <div className="Post-content">
-                    <p className="excerpt" dangerouslySetInnerHTML={{ __html: this.state.data.excerpt.rendered }}></p>
-                    <div className="content" dangerouslySetInnerHTML={{ __html: this.state.data.content.rendered }}></div>
-                </div>
-                <hr />
-                <div className="Post-social-media">
-                    <span>Udostępnij</span>
-                    <div className="Post-social-media-icons">
-                        <a target="_blank" rel="noopener noreferrer" href={`fb-messenger://share?link=${window.location.href}`}>
-                            <img alt="messenger" src="/social/messenger.svg" />
-                        </a>
-                        <a target="_blank" rel="noopener noreferrer" href={`whatsapp://send?text=${window.location.href}`}>
-                            <img alt="whatsapp" src="/social/whatsapp.svg" />
-                        </a>
-                        <a target="_blank" rel="noopener noreferrer" href={`https://facebook.com/sharer/sharer.php?u=${window.location.href}`}>
-                            <img alt="facebook" src="/social/facebook.svg" />
-                        </a>
-                        <a target="_blank" rel="noopener noreferrer" href={`mailto:?&body=${window.location.href}`}>
-                            <img alt="email" src="/social/email.svg" />
-                        </a>
-                        <a target="_blank" rel="noopener noreferrer" href={`https://twitter.com/home?status=${window.location.href}`}>
-                            <img alt="twitter" src="/social/twitter.svg" />
-                        </a>
-                    </div>
-                </div>
-                <hr />
-                <Comments href={`https://${window.location.hostname}/${this.props.match.params.id}`} />
             </div>
-        )
-    }
+            <div className="Post-content">
+                <p className="excerpt" dangerouslySetInnerHTML={{ __html: data.post.excerpt }}></p>
+                <div className="content" dangerouslySetInnerHTML={{ __html: data.post.content }}></div>
+            </div>
+            <hr />
+            <div className="Post-social-media">
+                <span>Udostępnij</span>
+                <div className="Post-social-media-icons">
+                    <a target="_blank" rel="noopener noreferrer" href={`fb-messenger://share?link=${window.location.href}`}>
+                        <img alt="messenger" src="/social/messenger.svg" />
+                    </a>
+                    <a target="_blank" rel="noopener noreferrer" href={`whatsapp://send?text=${window.location.href}`}>
+                        <img alt="whatsapp" src="/social/whatsapp.svg" />
+                    </a>
+                    <a target="_blank" rel="noopener noreferrer" href={`https://facebook.com/sharer/sharer.php?u=${window.location.href}`}>
+                        <img alt="facebook" src="/social/facebook.svg" />
+                    </a>
+                    <a target="_blank" rel="noopener noreferrer" href={`mailto:?&body=${window.location.href}`}>
+                        <img alt="email" src="/social/email.svg" />
+                    </a>
+                    <a target="_blank" rel="noopener noreferrer" href={`https://twitter.com/home?status=${window.location.href}`}>
+                        <img alt="twitter" src="/social/twitter.svg" />
+                    </a>
+                </div>
+            </div>
+            <hr />
+            <Comments href={`https://${window.location.hostname}/${slug}`} />
+        </div>
+    );
 }
 
 export default Post;

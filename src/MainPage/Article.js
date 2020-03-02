@@ -12,7 +12,7 @@ class Article extends React.Component {
         };
         return (
             <article className="Article">
-                <Link to={`/post/${this.props.data.databaseId}/${this.props.data.slug}`}>
+                <Link to={`/${this.props.data.slug}`}>
                     <div className="image" style={styles}></div>
                     <div className="article-content">
                         <div className="title" dangerouslySetInnerHTML={{ __html: this.props.data.title }}></div>

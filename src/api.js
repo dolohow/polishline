@@ -6,8 +6,4 @@ async function getSearchPostResults(searchParam) {
     return await (await fetch(`${API_POSTS}?search=${searchParam}`)).json();
 }
 
-async function getPost(postId) {
-    return await (await fetch(`${API_POSTS}/${postId}?_embed`)).json();
-}
-
-export { getPost, getSearchPostResults };
+export { getSearchPostResults };

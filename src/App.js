@@ -24,7 +24,8 @@ function App() {
           <Header />
           <Switch>
             <Route exact path="/" component={MainPage} />
-            <Route path="/post/:id/" component={Post} />
+            <Route path="/tag/:tag/" component={MainPage} />
+            <Route path="/:slug/" component={Post} />
           </Switch>
           <Footer />
         </ApolloProvider>
