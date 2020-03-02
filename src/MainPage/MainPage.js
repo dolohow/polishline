@@ -1,53 +1,58 @@
 import React from 'react';
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
 
 import Article from './Article';
 
-import { getPosts } from '../api';
 import Loader from '../Loader';
 
 import './MainPage.scss';
 
-class MainPage extends React.Component {
-    constructor() {
-        super();
-        this.state = { data: [] }
-    }
-
-    async componentDidMount() {
-        this.setState({ data: await getPosts(this.props.location.search) });
-    }
-
-    async componentDidUpdate(prevProps) {
-        if (prevProps.location.search !== this.props.location.search) {
-            this.setState({ data: await getPosts(this.props.location.search) });
+const GET_ALL_POSTS = gql`
+    query posts($tag: String) {
+        posts(where: {tag: $tag}) {
+            edges {
+                node {
+                    title
+                    excerpt(format: RENDERED)
+                    content(format: RENDERED)
+                    databaseId
+                    date
+                    slug
+                    featuredImage {
+                        sourceUrl(size: MEDIUM_LARGE)
+                    }
+                    id
+                }
+            }
         }
     }
+`;
 
-    render() {
-        const tagName = this.props.location.state?.tag;
+function MainPage({ location }) {
+    const { loading, data } = useQuery(GET_ALL_POSTS, { variables: { tag: location.state?.tag } });
 
-        if (!this.state.data.length)
-            return <Loader />;
+    if (loading) return <Loader />;
+    const tagName = location.state?.tag;
 
-        return (
-            <div className="MainPage">
-                {tagName && <div className="MainPage-filter">#{tagName}</div>}
-                <div className="MainPage-articles-wrapper">
-                    {this.state.data.map(d =>
-                        <Article
-                            key={d.id}
-                            id={d.id}
-                            slug={d.slug}
-                            date={d.date}
-                            title={d.title.rendered}
-                            excerpt={d.excerpt.rendered}
-                            author='Radzio'
-                            img={d._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url}
-                        />)}
-                </div>
+    return (
+        <div className="MainPage">
+            {tagName && <div className="MainPage-filter">#{tagName}</div>}
+            <div className="MainPage-articles-wrapper">
+                {data.posts.edges.map(d =>
+                    <Article
+                        key={d.node.id}
+                        id={d.node.databaseId}
+                        slug={d.node.slug}
+                        date={d.node.date}
+                        title={d.node.title}
+                        excerpt={d.node.excerpt}
+                        author='Radzio'
+                        img={d.node.featuredImage.sourceUrl}
+                    />)}
             </div>
-        )
-    }
+        </div>
+    );
 }
 
 export default MainPage;
