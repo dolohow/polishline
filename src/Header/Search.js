@@ -29,7 +29,7 @@ function Search({ focus, onLinkClicked }) {
     const [searchPosts, { loading, data }] = useLazyQuery(SEARCH_POSTS);
     const debouncedSearchPosts = debounce(searchPosts, 500);
 
-    let searchInput = React.createRef();
+    const searchInput = React.createRef();
     useEffect(() => {
         if (focus) {
             searchInput.current.focus();
