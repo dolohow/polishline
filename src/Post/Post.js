@@ -28,7 +28,7 @@ const GET_POST = gql`
                 }
             }
             featuredImage {
-                mediaItemUrl
+                sourceUrl(size: MEDIUM_LARGE)
             }
         }
     }
@@ -59,7 +59,7 @@ function Post() {
     if (loading) return <Loader />;
 
     const styles = {
-        background: `url(${data.post.featuredImage.mediaItemUrl}) center center / cover no-repeat`,
+        background: `url(${data.post.featuredImage.sourceUrl}) center center / cover no-repeat`,
     };
 
     return (
