@@ -15,7 +15,6 @@ const GET_ALL_POSTS = gql`
                 node {
                     title
                     excerpt(format: RENDERED)
-                    content(format: RENDERED)
                     databaseId
                     date
                     slug
@@ -40,16 +39,8 @@ function MainPage({ location }) {
             {tagName && <div className="MainPage-filter">#{tagName}</div>}
             <div className="MainPage-articles-wrapper">
                 {data.posts.edges.map(d =>
-                    <Article
-                        key={d.node.id}
-                        id={d.node.databaseId}
-                        slug={d.node.slug}
-                        date={d.node.date}
-                        title={d.node.title}
-                        excerpt={d.node.excerpt}
-                        author='Radzio'
-                        img={d.node.featuredImage.sourceUrl}
-                    />)}
+                    <Article key={d.node.id} data={d.node} />
+                )};
             </div>
         </div>
     );

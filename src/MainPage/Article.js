@@ -8,17 +8,17 @@ import './Article.scss';
 class Article extends React.Component {
     render() {
         const styles = {
-            background: `url(${this.props.img}) center center / cover no-repeat`,
+            background: `url(${this.props.data.featuredImage.sourceUrl}) center center / cover no-repeat`,
         };
         return (
             <article className="Article">
-                <Link to={`/post/${this.props.id}/${this.props.slug}`}>
+                <Link to={`/post/${this.props.data.databaseId}/${this.props.data.slug}`}>
                     <div className="image" style={styles}></div>
                     <div className="article-content">
-                        <div className="title" dangerouslySetInnerHTML={{ __html: this.props.title }}></div>
-                        <div className="excerpt" dangerouslySetInnerHTML={{ __html: this.props.excerpt }}></div>
+                        <div className="title" dangerouslySetInnerHTML={{ __html: this.props.data.title }}></div>
+                        <div className="excerpt" dangerouslySetInnerHTML={{ __html: this.props.data.excerpt }}></div>
                         <hr />
-                        <DateComponent date={this.props.date} />
+                        <DateComponent date={this.props.data.date} />
                     </div>
                 </Link>
             </article>
