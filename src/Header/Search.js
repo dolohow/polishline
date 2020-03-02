@@ -1,76 +1,87 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useLazyQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
 
-import { getSearchPostResults } from '../api';
 import { debounce } from '../utils'
 
 import './Search.scss';
 
-class Search extends React.Component {
-    constructor() {
-        super();
-        this.state = { data: [], showInstantResults: true };
-        this.searchInput = React.createRef();
-        this.getData = debounce(this.getData, 500);
-    }
 
-    componentDidMount() {
-        if (this.props.focus) {
-            this.searchInput.current.focus();
+const SEARCH_POSTS = gql`
+    query posts($query: String!) {
+        contentNodes(where: {contentTypes: POST, search: $query}) {
+            edges {
+                node {
+                    ... on Post {
+                        id
+                        title(format: RENDERED)
+                        slug
+                    }
+                }
+            }
         }
     }
+`;
 
-    handleSubmit = (e) => {
+function Search({ focus, onLinkClicked }) {
+    const [showInstantResults, setShowInstantResults] = useState(false);
+    const [searchPosts, { loading, data }] = useLazyQuery(SEARCH_POSTS);
+    const debouncedSearchPosts = debounce(searchPosts, 500);
+
+    let searchInput = React.createRef();
+    useEffect(() => {
+        if (focus) {
+            searchInput.current.focus();
+        }
+    });
+
+    const handleSubmit = (e) => {
         e.preventDefault();
     }
 
-    handleChange = e => {
-        const val = e.target.value;
-        if (val.length < 3) {
-            this.setState({ data: [] });
+    const handleChange = e => {
+        const query = e.target.value;
+        if (query.length < 3) {
+            setShowInstantResults(false);
             return;
         }
-        this.getData(val)
+        setShowInstantResults(true);
+        debouncedSearchPosts({ variables: { query } });
     }
 
-    handleBlur = () => {
+    const handleFocus = e => {
+        setShowInstantResults(true);
+    }
+
+    const handleBlur = () => {
         setTimeout(() => {
-            this.setState({ showInstantResults: false });
+            setShowInstantResults(false);
         }, 100);
     }
 
-    handleFocus = () => {
-        this.setState({ showInstantResults: true });
-    }
-
-    handleClick = () => {
-        if (this.props.onLinkClicked) {
-            this.props.onLinkClicked();
+    const handleClick = () => {
+        if (onLinkClicked) {
+            onLinkClicked();
         }
     }
 
-    getData = async (val) => {
-        this.setState({ data: await getSearchPostResults(val) });
-    }
-
-    render() {
-        return (
-            <div className='search-form'>
-                <form onSubmit={this.handleSubmit}>
-                    <input ref={this.searchInput} type="text" onChange={this.handleChange} onFocus={this.handleFocus} onBlur={this.handleBlur} placeholder="Szukaj" />
-                    {this.state.showInstantResults &&
-                        <ul>
-                            {this.state.data.map(elem => (
-                                <Link onClick={this.handleClick} key={elem.id} to={`/${elem.slug}`}>
-                                    <li dangerouslySetInnerHTML={{ __html: elem.title.rendered }}></li>
-                                </Link>
-                            ))}
-                        </ul>
-                    }
-                </form>
-            </div>
-        )
-    }
+    return (
+        <div className='search-form'>
+            <form onSubmit={handleSubmit}>
+                <input ref={searchInput} type="text" onChange={handleChange} onFocus={handleFocus} onBlur={handleBlur} placeholder="Szukaj" />
+                {showInstantResults && !loading && data &&
+                    <ul>
+                        {data.contentNodes.edges.map(elem => (
+                            <Link onClick={handleClick} key={elem.node.id} to={`/${elem.node.slug}`}>
+                                <li dangerouslySetInnerHTML={{ __html: elem.node.title }}></li>
+                            </Link>
+                        ))}
+                    </ul>
+                }
+            </form>
+        </div>
+    );
 }
 
 
