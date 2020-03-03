@@ -1,11 +1,11 @@
 .MainPage {
   background-color: #e6e6e6;
-  margin-top: 64px;
 
   &-articles-wrapper {
+    padding: 4vh 0;
     margin: 0 auto;
     display: flex;
-    max-width: 1248px;
+    max-width: 1120px;
     flex-wrap: wrap;
   }
 

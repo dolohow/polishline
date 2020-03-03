@@ -1,7 +1,14 @@
+header {
+  height: 64px;
+}
+
 .Header {
   background-color: white;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   height: 64px;
+  max-width: 1120px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   position: fixed;
   top: 0;
   transition: top 0.3s;
@@ -23,20 +30,32 @@
   }
 
   .hamburger {
+    cursor: pointer;
     display: inline-block;
     border-right: 1px solid #e6e6e6;
-    padding: 17px 24px 11px 24px;
-    &-enter-done {
-      img {
-        transform: rotate(-90deg);
-        transition: all 350ms ease;
-      }
+    padding: 14px 24px 11px 24px;
+
+    .bar1,
+    .bar2,
+    .bar3 {
+      width: 35px;
+      height: 3px;
+      background-color: #333;
+      margin: 7px 0;
+      transition: 0.4s;
     }
-    &-exit {
-      img {
-        transition: all 350ms ease;
-      }
-    }
+  }
+
+  .change .bar1 {
+    transform: rotate(-45deg) translate(-8px, 6px);
+  }
+
+  .change .bar2 {
+    opacity: 0;
+  }
+
+  .change .bar3 {
+    transform: rotate(45deg) translate(-8px, -7px);
   }
 
   .search {
@@ -46,36 +65,23 @@
   }
 
   .menu {
-    margin: -1px 0 0 0;
-    padding: 30px 0 0 0;
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: all 500ms ease;
+    height: 0;
+    opacity: 0;
+    position: relative;
 
-    &-enter {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-
-    &-enter-active {
+    &-show {
       opacity: 1;
-      transform: translateX(0);
-      transition: opacity 300ms, transform 300ms;
-    }
-
-    &-exit {
-      opacity: 1;
-    }
-
-    &-exit-active {
-      opacity: 0;
-      transform: scale(0.9);
-      transition: opacity 300ms, transform 300ms;
+      height: 100vh;
     }
   }
 
   .links {
     ul {
       padding: 0;
+      margin: 0;
       list-style: none;
       text-align: center;
       color: #333;

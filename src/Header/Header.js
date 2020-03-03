@@ -1,5 +1,4 @@
 import React from 'react';
-import { CSSTransition } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 
 import Search from './Search';
@@ -9,7 +8,7 @@ import './Header.scss';
 class Header extends React.Component {
     constructor() {
         super();
-        this.state = { showMenu: false, showMenuFromSearch: false, searchInputValue: '' };
+        this.state = { showMenu: false, showMenuFromSearch: false };
         this.header = React.createRef();
     }
 
@@ -54,32 +53,34 @@ class Header extends React.Component {
 
     render() {
         return (
-            <header ref={this.header} className="Header">
-                <div className="logo">
-                    <Link onClick={this.closeMenu} to="/">
-                        <img alt="logo" src="/mountains.svg"></img>
-                    </Link>
-                </div>
-                <CSSTransition timeout={{ exit: 200 }} classNames="hamburger" in={this.state.showMenu}>
-                    <div className="hamburger" onClick={this.toggleMenu} >
-                        <img alt="menu" src="/hamburger.svg"></img>
+            <header>
+                <div ref={this.header} className="Header">
+                    <div className="logo">
+                        <Link onClick={this.closeMenu} to="/">
+                            <img alt="logo" src="/mountains.svg"></img>
+                        </Link>
                     </div>
-                </CSSTransition>
-                <div onClick={this.toggleMenuFromSearch} className="search">
-                    <img alt="szukaj" src="/magnifier.svg"></img>
-                </div>
-                <CSSTransition classNames="menu" in={this.state.showMenu} timeout={200} unmountOnExit>
-                    <div className="menu">
-                        <Search onLinkClicked={this.closeMenu} focus={this.state.showMenuFromSearch} />
-                        <div className="links">
-                            <ul>
-                                <li>Autorzy</li>
-                                <li>Galeria</li>
-                                <li>Facebook</li>
-                            </ul>
+                    <div className={`hamburger ${this.state.showMenu ? "change" : ""}`} onClick={this.toggleMenu}>
+                        <div className="bar1"></div>
+                        <div className="bar2"></div>
+                        <div className="bar3"></div>
+                    </div>
+                    <div onClick={this.toggleMenuFromSearch} className="search">
+                        <img alt="szukaj" src="/magnifier.svg"></img>
+                    </div>
+                    <div className={`menu ${this.state.showMenu ? 'menu-show' : null}`}>
+                        <div className="menu-content">
+                            <Search onLinkClicked={this.closeMenu} focus={this.state.showMenuFromSearch} />
+                            <div className="links">
+                                <ul>
+                                    <li>Autorzy</li>
+                                    <li>Galeria</li>
+                                    <li>Facebook</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </CSSTransition>
+                </div>
             </header>
         )
     }

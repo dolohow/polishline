@@ -107,7 +107,9 @@ function Post() {
                 </div>
             </div>
             <hr />
-            <Comments href={`https://${window.location.hostname}/${slug}`} />
+            <div style={{ textAlign: "center" }}>
+                <Comments style="text-align:center" href={`https://${window.location.hostname}/${slug}`} />
+            </div>
         </div>
     );
 }
