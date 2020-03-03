@@ -68,16 +68,14 @@ class Header extends React.Component {
                     <div onClick={this.toggleMenuFromSearch} className="search">
                         <img alt="szukaj" src="/magnifier.svg"></img>
                     </div>
-                    <div className={`menu ${this.state.showMenu ? 'menu-show' : null}`}>
-                        <div className="menu-content">
-                            <Search onLinkClicked={this.closeMenu} focus={this.state.showMenuFromSearch} />
-                            <div className="links">
-                                <ul>
-                                    <li>Autorzy</li>
-                                    <li>Galeria</li>
-                                    <li>Facebook</li>
-                                </ul>
-                            </div>
+                    <div className={`menu ${this.state.showMenu ? 'menu-show' : ""}`}>
+                        <Search onLinkClicked={this.closeMenu} focus={this.state.showMenuFromSearch} />
+                        <div className="links">
+                            <ul>
+                                <li>Autorzy</li>
+                                <li>Galeria</li>
+                                <li>Facebook</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
