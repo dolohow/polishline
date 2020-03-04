@@ -34,6 +34,48 @@ const GET_POST = gql`
     }
 `;
 
+function SocialMediaShare() {
+    const socialButtons = [
+        {
+            href: `fb-messenger://share?link=${window.location.href}`,
+            alt: "messenger",
+            src: "/social/messenger.svg",
+            hideOnDesktop: true
+        },
+        {
+            href: `whatsapp://send?text=${window.location.href}`,
+            alt: "whatsapp",
+            src: "/social/whatsapp.svg",
+            hideOnDesktop: true
+        },
+        {
+            href: `https://facebook.com/sharer/sharer.php?u=${window.location.href}`,
+            alt: "facebook",
+            src: "/social/facebook.svg"
+        },
+        {
+            href: `mailto:?&body=${window.location.href}`,
+            alt: "email",
+            src: "/social/email.svg"
+        },
+        {
+            href: `https://twitter.com/home?status=${window.location.href}`,
+            alt: "twitter",
+            src: "/social/twitter.svg"
+        },
+    ];
+
+    return (
+        <div className="Post-social-media-icons">
+            {socialButtons.map((val, key) =>
+                <a className={val.hideOnDesktop ? "hide-on-desktop" : ""} key={key} target="_blank" rel="noopener noreferrer" href={val.href}>
+                    <img alt={val.alt} src={val.src} />
+                </a>
+            )}
+        </div>
+    );
+}
+
 function Post() {
     const { slug } = useParams();
     const { loading, data } = useQuery(GET_POST, { variables: { slug } });
@@ -88,23 +130,7 @@ function Post() {
             <hr />
             <div className="Post-social-media">
                 <span>Udostępnij</span>
-                <div className="Post-social-media-icons">
-                    <a target="_blank" rel="noopener noreferrer" href={`fb-messenger://share?link=${window.location.href}`}>
-                        <img alt="messenger" src="/social/messenger.svg" />
-                    </a>
-                    <a target="_blank" rel="noopener noreferrer" href={`whatsapp://send?text=${window.location.href}`}>
-                        <img alt="whatsapp" src="/social/whatsapp.svg" />
-                    </a>
-                    <a target="_blank" rel="noopener noreferrer" href={`https://facebook.com/sharer/sharer.php?u=${window.location.href}`}>
-                        <img alt="facebook" src="/social/facebook.svg" />
-                    </a>
-                    <a target="_blank" rel="noopener noreferrer" href={`mailto:?&body=${window.location.href}`}>
-                        <img alt="email" src="/social/email.svg" />
-                    </a>
-                    <a target="_blank" rel="noopener noreferrer" href={`https://twitter.com/home?status=${window.location.href}`}>
-                        <img alt="twitter" src="/social/twitter.svg" />
-                    </a>
-                </div>
+                <SocialMediaShare />
             </div>
             <hr />
             <div style={{ textAlign: "center" }}>
