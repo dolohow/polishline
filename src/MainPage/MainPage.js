@@ -41,7 +41,7 @@ function MainPage() {
             <div className="MainPage-articles-wrapper">
                 {data.posts.edges.map(d =>
                     <Article key={d.node.id} data={d.node} />
-                )};
+                )}
             </div>
         </div>
     );

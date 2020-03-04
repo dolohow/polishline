@@ -6,8 +6,10 @@ class Footer extends React.Component {
     render() {
         return (
             <footer>
-                <img src="/mountains2.svg"></img>
-                <img className="background" src="/radzio.jpg"></img>
+                <div className="social-icons">
+                    <a href="#"><img alt="facebook fanpage" src="/social/facebook2.svg" /></a>
+                    <a href="#"><img alt="instagram fanpage" src="/social/instagram2.svg" /></a>
+                </div>
             </footer>
         )
     }

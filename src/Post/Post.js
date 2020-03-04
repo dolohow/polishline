@@ -133,7 +133,7 @@ function Post() {
                 <SocialMediaShare />
             </div>
             <hr />
-            <div style={{ textAlign: "center" }}>
+            <div className="Post-facebook-comments">
                 <Comments style="text-align:center" href={`https://${window.location.hostname}/${slug}`} />
             </div>
         </div>
