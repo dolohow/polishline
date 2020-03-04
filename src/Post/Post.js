@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Link, useParams } from 'react-router-dom';
+import { Helmet } from "react-helmet";
 import { Comments } from 'react-facebook';
 import ImageGallery from 'react-image-gallery';
 import { useQuery } from '@apollo/react-hooks';
@@ -104,39 +105,46 @@ function Post() {
         background: `url(${data.post.featuredImage.sourceUrl}) center center / cover no-repeat`,
     };
 
+
+
     return (
-        <div className="Post">
-            <div className="Post-image" style={styles}>
-                <div className="Post-image-opacity"></div>
-                <div className="Post-image-content">
-                    <h1 dangerouslySetInnerHTML={{ __html: data.post.title }}></h1>
-                    <hr />
-                    <DateComponent date={data.post.date} />
-                    <div className="Post-image-tags">
-                        <ul>
-                            {data.post.tags.nodes.map((d, key) =>
-                                <li key={key}>
-                                    <Link to={`/tag/${d.name}`}>{d.name}</Link>
-                                </li>
-                            )}
-                        </ul>
+        <>
+            <Helmet>
+                <title>{`${data.post.title} | ${process.env.REACT_APP_SITE_NAME}`}</title>
+            </Helmet>
+            <div className="Post">
+                <div className="Post-image" style={styles}>
+                    <div className="Post-image-opacity"></div>
+                    <div className="Post-image-content">
+                        <h1 dangerouslySetInnerHTML={{ __html: data.post.title }}></h1>
+                        <hr />
+                        <DateComponent date={data.post.date} />
+                        <div className="Post-image-tags">
+                            <ul>
+                                {data.post.tags.nodes.map((d, key) =>
+                                    <li key={key}>
+                                        <Link to={`/tag/${d.name}`}>{d.name}</Link>
+                                    </li>
+                                )}
+                            </ul>
+                        </div>
                     </div>
                 </div>
+                <div className="Post-content">
+                    <p className="excerpt" dangerouslySetInnerHTML={{ __html: data.post.excerpt }}></p>
+                    <div className="content" dangerouslySetInnerHTML={{ __html: data.post.content }}></div>
+                </div>
+                <hr />
+                <div className="Post-social-media">
+                    <span>Udostępnij</span>
+                    <SocialMediaShare />
+                </div>
+                <hr />
+                <div className="Post-facebook-comments">
+                    <Comments href={`https://${window.location.hostname}/${slug}`} />
+                </div>
             </div>
-            <div className="Post-content">
-                <p className="excerpt" dangerouslySetInnerHTML={{ __html: data.post.excerpt }}></p>
-                <div className="content" dangerouslySetInnerHTML={{ __html: data.post.content }}></div>
-            </div>
-            <hr />
-            <div className="Post-social-media">
-                <span>Udostępnij</span>
-                <SocialMediaShare />
-            </div>
-            <hr />
-            <div className="Post-facebook-comments">
-                <Comments style="text-align:center" href={`https://${window.location.hostname}/${slug}`} />
-            </div>
-        </div>
+        </>
     );
 }
 

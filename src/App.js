@@ -13,13 +13,13 @@ import Footer from './Footer/Footer';
 import Post from './Post/Post';
 
 const client = new ApolloClient({
-  uri: 'https://api.polishline.pl/graphql',
+  uri: process.env.REACT_APP_GRAPHQL_URL,
 });
 
 function App() {
   return (
     <Router>
-      <FacebookProvider appId="431500727519846">
+      <FacebookProvider appId={process.env.REACT_APP_FACEBOOK_APPID}>
         <ApolloProvider client={client}>
           <Header />
           <Switch>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from "react-helmet";
 import { useQuery } from '@apollo/react-hooks';
 import { useParams } from 'react-router-dom';
 import { gql } from 'apollo-boost';
@@ -36,14 +37,22 @@ function MainPage() {
     if (loading) return <Loader />;
 
     return (
-        <div className="MainPage">
-            {tag && <div className="MainPage-filter">#{tag}</div>}
-            <div className="MainPage-articles-wrapper">
-                {data.posts.edges.map(d =>
-                    <Article key={d.node.id} data={d.node} />
-                )}
+        <>
+            <Helmet>
+                {tag ?
+                    <title>{`${tag} | ${process.env.REACT_APP_SITE_NAME}`}</title> :
+                    <title>{process.env.REACT_APP_SITE_NAME}</title>
+                }
+            </Helmet>
+            <div className="MainPage">
+                {tag && <div className="MainPage-filter">#{tag}</div>}
+                <div className="MainPage-articles-wrapper">
+                    {data.posts.edges.map(d =>
+                        <Article key={d.node.id} data={d.node} />
+                    )}
+                </div>
             </div>
-        </div>
+        </>
     );
 }
 
