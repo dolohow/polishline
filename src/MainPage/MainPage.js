@@ -1,4 +1,5 @@
 import React from 'react';
+import InfiniteScroll from 'react-infinite-scroller';
 import { Helmet } from "react-helmet";
 import { useQuery } from '@apollo/react-hooks';
 import { useParams } from 'react-router-dom';
@@ -11,30 +12,59 @@ import Loader from '../Loader';
 import './MainPage.scss';
 
 const GET_ALL_POSTS = gql`
-    query posts($tag: String) {
-        posts(where: {tag: $tag}) {
-            edges {
-                node {
-                    title
-                    excerpt(format: RENDERED)
-                    databaseId
-                    date
-                    slug
-                    featuredImage {
-                        sourceUrl(size: MEDIUM_LARGE)
-                    }
-                    id
-                }
-            }
+query posts($tag: String, $cursor: String) {
+  posts(where: {tag: $tag}, first: 6, after: $cursor) {
+    edges {
+      node {
+        title
+        excerpt(format: RENDERED)
+        databaseId
+        date
+        slug
+        featuredImage {
+          sourceUrl(size: MEDIUM_LARGE)
         }
+        id
+      }
     }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+
 `;
+
+function Spinner() {
+    return (
+        <div style={{ width: "100%", marginTop: "15px" }}>
+            <div className="simple-spinner"></div>
+        </div>
+    );
+}
 
 function MainPage() {
     const { tag } = useParams();
-    const { loading, data } = useQuery(GET_ALL_POSTS, { variables: { tag } });
+    const { data, loading, fetchMore } = useQuery(GET_ALL_POSTS, { variables: { tag } });
 
     if (loading) return <Loader />;
+
+    const loadMorePosts = () => fetchMore({
+        variables: { cursor: data.posts.pageInfo.endCursor },
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+            const newEdges = fetchMoreResult.posts.edges;
+            const pageInfo = fetchMoreResult.posts.pageInfo;
+
+            return {
+                posts: {
+                    __typename: previousResult.posts.__typename,
+                    edges: [...previousResult.posts.edges, ...newEdges],
+                    pageInfo
+                }
+            };
+        }
+    })
 
     return (
         <>
@@ -46,11 +76,16 @@ function MainPage() {
             </Helmet>
             <div className="MainPage">
                 {tag && <div className="MainPage-filter">#{tag}</div>}
-                <div className="MainPage-articles-wrapper">
+                <InfiniteScroll
+                    className="MainPage-articles-wrapper"
+                    loadMore={loadMorePosts}
+                    hasMore={data.posts.pageInfo.hasNextPage}
+                    loader={<Spinner key={0} />}
+                >
                     {data.posts.edges.map(d =>
                         <Article key={d.node.id} data={d.node} />
                     )}
-                </div>
+                </InfiniteScroll>
             </div>
         </>
     );
