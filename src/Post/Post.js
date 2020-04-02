@@ -10,6 +10,7 @@ import { gql } from 'apollo-boost';
 
 import DateComponent from '../DateComponent';
 import Loader from '../Loader';
+import NotFound from '../NotFound';
 
 import { getThumbnailUrlFromFullUrl } from '../utils';
 
@@ -100,6 +101,8 @@ function Post() {
     });
 
     if (loading) return <Loader />;
+
+    if (!data.post) return <NotFound />;
 
     const styles = {
         background: `url(${data.post.featuredImage.sourceUrl}) center center / cover no-repeat`,

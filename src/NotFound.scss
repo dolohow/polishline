@@ -1,0 +1,15 @@
+.NotFound {
+    font-size: 5vw;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: white;
+    padding: 30px 5px;
+    font-weight: 500;
+    font-family: sans-serif;
+    span {
+        display: block;;
+        font-size: 10vw;
+        padding: 50px;
+        color: grey;
+    }
+}
