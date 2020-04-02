@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Link, useParams } from 'react-router-dom';
-import { Helmet } from "react-helmet";
 import { Comments } from 'react-facebook';
 import ImageGallery from 'react-image-gallery';
 import { useQuery } from '@apollo/react-hooks';
@@ -11,6 +10,7 @@ import { gql } from 'apollo-boost';
 import DateComponent from '../DateComponent';
 import Loader from '../Loader';
 import NotFound from '../NotFound';
+import SEO from '../SEO';
 
 import { getThumbnailUrlFromFullUrl } from '../utils';
 
@@ -31,6 +31,9 @@ const GET_POST = gql`
             }
             featuredImage {
                 sourceUrl(size: MEDIUM_LARGE)
+            }
+            meta {
+                description
             }
         }
     }
@@ -112,9 +115,11 @@ function Post() {
 
     return (
         <>
-            <Helmet>
-                <title>{`${data.post.title} | ${process.env.REACT_APP_SITE_NAME}`}</title>
-            </Helmet>
+            <SEO
+                pageTitle={`${data.post.title} | ${process.env.REACT_APP_SITE_NAME}`}
+                title={data.post.title}
+                description={data.post.meta.description}
+            />
             <div className="Post">
                 <div className="Post-image" style={styles}>
                     <div className="Post-image-opacity"></div>
