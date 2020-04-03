@@ -5,7 +5,7 @@ const rendertron = require('rendertron-middleware');
 const app = express();
 
 app.use(rendertron.makeMiddleware({
-  proxyUrl: 'https://render-tron.appspot.com/render',
+  proxyUrl: 'http://localhost:3000/render'
 }));
 
 app.use(express.static(path.join(__dirname, 'build')));
@@ -13,4 +13,4 @@ app.get('*', (request, response) => {
   response.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.listen(8080);
+app.listen(8080, 'localhost');
