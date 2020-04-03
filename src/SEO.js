@@ -2,7 +2,7 @@ import React from "react";
 
 import Helmet from "react-helmet";
 
-function SEO({ pageTitle, title, description }) {
+function SEO({ pageTitle, title, description, image }) {
     return (
         <Helmet
             title={pageTitle}
@@ -20,8 +20,20 @@ function SEO({ pageTitle, title, description }) {
                     content: description,
                 },
                 {
+                    property: "og:image",
+                    content: image,
+                },
+                {
+                    property: "fb:app_id",
+                    content: process.env.REACT_APP_FACEBOOK_APPID,
+                },
+                {
                     property: "og:type",
                     content: "website",
+                },
+                {
+                    property: "og:locale",
+                    content: "pl_PL",
                 },
                 {
                     name: "twitter:card",

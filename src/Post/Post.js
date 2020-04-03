@@ -119,6 +119,7 @@ function Post() {
                 pageTitle={`${data.post.title} | ${process.env.REACT_APP_SITE_NAME}`}
                 title={data.post.title}
                 description={data.post.meta.description}
+                image={data.post.featuredImage.sourceUrl}
             />
             <div className="Post">
                 <div className="Post-image" style={styles}>
