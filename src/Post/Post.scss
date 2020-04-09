@@ -181,8 +181,14 @@
     }
   }
 
-  &-facebook-comments {
+  &-comments {
     text-align: center;
     margin-bottom: 30px;
+
+    &-disabled {
+      font-size: 5vh;
+      font-weight: 500;
+      color: grey;
+    }
   }
 }

@@ -24,6 +24,7 @@ const GET_POST = gql`
             excerpt(format: RENDERED)
             content
             date
+            commentStatus
             tags {
                 nodes {
                     name
@@ -149,8 +150,14 @@ function Post() {
                     <SocialMediaShare />
                 </div>
                 <hr />
-                <div className="Post-facebook-comments">
-                    <Comments href={`https://${window.location.hostname}/${slug}`} />
+                <div className="Post-comments">
+                    {data.post.commentStatus === "open" ?
+                        <div>
+                            <Comments href={`https://${window.location.hostname}/${slug}`} />
+                        </div>
+                        :
+                        <div className="Post-comments-disabled">Komentarze zostały wyłaczone</div>
+                    }
                 </div>
             </div>
         </>
