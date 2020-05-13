@@ -1,6 +1,5 @@
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { Helmet } from "react-helmet";
 import { useQuery } from '@apollo/react-hooks';
 import { useParams } from 'react-router-dom';
 import { gql } from 'apollo-boost';
@@ -8,6 +7,7 @@ import { gql } from 'apollo-boost';
 import Article from './Article';
 
 import Loader from '../Loader';
+import SEO from '../SEO';
 
 import './MainPage.scss';
 
@@ -68,12 +68,10 @@ function MainPage() {
 
     return (
         <>
-            <Helmet>
-                {tag ?
-                    <title>{`${tag} | ${process.env.REACT_APP_SITE_NAME}`}</title> :
-                    <title>{process.env.REACT_APP_SITE_NAME}</title>
-                }
-            </Helmet>
+            <SEO
+                pageTitle={tag ? `${tag} | ${process.env.REACT_APP_SITE_NAME}` : process.env.REACT_APP_SITE_NAME}
+                title={tag ? `${tag} | ${process.env.REACT_APP_SITE_NAME}` : process.env.REACT_APP_SITE_NAME}
+            />
             <div className="MainPage">
                 {tag && <div className="MainPage-filter">#{tag}</div>}
                 <InfiniteScroll
