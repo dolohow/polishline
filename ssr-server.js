@@ -4,6 +4,8 @@ const rendertron = require('rendertron-middleware');
 
 const app = express();
 
+app.set('trust proxy', true)
+
 app.use(rendertron.makeMiddleware({
   proxyUrl: 'http://localhost:3000/render'
 }));
