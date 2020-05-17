@@ -1,14 +1,32 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
 
 import Search from './Search';
 
 import './Header.scss';
 
+const GET_MENU_ITEMS = gql`
+    query menus {
+        menus {
+          nodes {
+            menuItems {
+                nodes {
+                    label
+                }
+            }
+          }
+        }
+      }
+`;
+
 function Header() {
     const header = useRef(null)
     const [showMenu, setMenuState] = useState(false);
     const [showMenuFromSearch, setShowMenuFromSearch] = useState(false);
+    const { loading, data } = useQuery(GET_MENU_ITEMS);
+
 
     useEffect(() => {
         let prevScrollPos = window.pageYOffset;
@@ -32,6 +50,8 @@ function Header() {
         window.addEventListener('scroll', handleScroll, true);
         return () => window.removeEventListener('scroll', handleScroll);
     });
+
+    if (loading) return <></>;
 
     const closeMenu = () => {
         setMenuState(false);
@@ -67,9 +87,9 @@ function Header() {
                     <Search onLinkClicked={closeMenu} focus={showMenuFromSearch} />
                     <div className="links">
                         <ul>
-                            <li>Autorzy</li>
-                            <li>Galeria</li>
-                            <li>Facebook</li>
+                            {data.menus.nodes[0].menuItems.nodes.map((val, key) =>
+                                <li key={key}>{val.label}</li>
+                            )}
                         </ul>
                     </div>
                 </div>
