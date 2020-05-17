@@ -1,87 +1,82 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import Search from './Search';
 
 import './Header.scss';
 
-class Header extends React.Component {
-    constructor() {
-        super();
-        this.state = { showMenu: false, showMenuFromSearch: false };
-        this.header = React.createRef();
-    }
+function Header() {
+    const header = useRef(null)
+    const [showMenu, setMenuState] = useState(false);
+    const [showMenuFromSearch, setShowMenuFromSearch] = useState(false);
 
-    closeMenu = () => {
-        this.setState({ showMenu: false, showMenuFromSearch: false });
-    }
-
-    toggleMenu = () => {
-        this.setState({ showMenu: !this.state.showMenu });
-    }
-
-    toggleMenuFromSearch = () => {
-        this.toggleMenu();
-        this.setState({ showMenuFromSearch: !this.state.showMenuFromSearch });
-    }
-
-    componentDidMount = () => {
+    useEffect(() => {
         let prevScrollPos = window.pageYOffset;
 
         const handleScroll = () => {
             const currentScrollPos = window.pageYOffset;
 
-            if (this.state.showMenu) {
+            if (showMenu) {
                 return;
             }
 
             if (prevScrollPos > currentScrollPos) {
-                this.header.current.classList.remove('Header-hide');
+                header.current.classList.remove('Header-hide');
             } else {
-                this.header.current.classList.add('Header-hide');
+                header.current.classList.add('Header-hide');
             }
 
             prevScrollPos = currentScrollPos;
         };
 
         window.addEventListener('scroll', handleScroll, true);
+        return () => window.removeEventListener('scroll', handleScroll);
+    });
+
+    const closeMenu = () => {
+        setMenuState(false);
+        setShowMenuFromSearch(false);
     }
 
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll);
+    const toggleMenu = () => {
+        setMenuState(!showMenu);
     }
 
-    render() {
-        return (
-            <header>
-                <div ref={this.header} className="Header">
-                    <div className="logo">
-                        <Link onClick={this.closeMenu} to="/">
-                            <img alt="logo" src="/mountains.svg"></img>
-                        </Link>
-                    </div>
-                    <div className={`hamburger ${this.state.showMenu ? "change" : ""}`} onClick={this.toggleMenu}>
-                        <div className="bar1"></div>
-                        <div className="bar2"></div>
-                        <div className="bar3"></div>
-                    </div>
-                    <div onClick={this.toggleMenuFromSearch} className="search">
-                        <img alt="szukaj" src="/magnifier.svg"></img>
-                    </div>
-                    <div className={`menu ${this.state.showMenu ? 'menu-show' : ""}`}>
-                        <Search onLinkClicked={this.closeMenu} focus={this.state.showMenuFromSearch} />
-                        <div className="links">
-                            <ul>
-                                <li>Autorzy</li>
-                                <li>Galeria</li>
-                                <li>Facebook</li>
-                            </ul>
-                        </div>
+    const toggleMenuFromSearch = () => {
+        toggleMenu();
+        setShowMenuFromSearch(!showMenuFromSearch);
+    }
+
+    return (
+        <header>
+            <div ref={header} className="Header">
+                <div className="logo">
+                    <Link onClick={closeMenu} to="/">
+                        <img alt="logo" src="/mountains.svg"></img>
+                    </Link>
+                </div>
+                <div className={`hamburger ${showMenu ? "change" : ""}`} onClick={toggleMenu}>
+                    <div className="bar1"></div>
+                    <div className="bar2"></div>
+                    <div className="bar3"></div>
+                </div>
+                <div onClick={toggleMenuFromSearch} className="search">
+                    <img alt="szukaj" src="/magnifier.svg"></img>
+                </div>
+                <div className={`menu ${showMenu ? 'menu-show' : ""}`}>
+                    <Search onLinkClicked={closeMenu} focus={showMenuFromSearch} />
+                    <div className="links">
+                        <ul>
+                            <li>Autorzy</li>
+                            <li>Galeria</li>
+                            <li>Facebook</li>
+                        </ul>
                     </div>
                 </div>
-            </header>
-        )
-    }
-};
+            </div>
+        </header>
+    )
+}
+
 
 export default Header;
