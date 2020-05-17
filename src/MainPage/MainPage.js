@@ -33,8 +33,11 @@ query posts($tag: String, $cursor: String) {
       endCursor
     }
   }
+  generalSettings {
+    title
+    description
+  }
 }
-
 `;
 
 function Spinner() {
@@ -74,6 +77,7 @@ function MainPage() {
             <SEO
                 pageTitle={tag ? `${tag} | ${process.env.REACT_APP_SITE_NAME}` : process.env.REACT_APP_SITE_NAME}
                 title={tag ? `${tag} | ${process.env.REACT_APP_SITE_NAME}` : process.env.REACT_APP_SITE_NAME}
+                description={data.generalSettings.description}
             />
             <div className="MainPage">
                 {tag && <div className="MainPage-filter">#{tag}</div>}
