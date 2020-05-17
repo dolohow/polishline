@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
@@ -26,10 +26,10 @@ const SEARCH_POSTS = gql`
 
 function Search({ focus, onLinkClicked }) {
     const [showInstantResults, setShowInstantResults] = useState(false);
+    const searchInput = useRef(null);
     const [searchPosts, { loading, data }] = useLazyQuery(SEARCH_POSTS);
     const debouncedSearchPosts = debounce(searchPosts, 500);
 
-    const searchInput = React.createRef();
     useEffect(() => {
         if (focus) {
             searchInput.current.focus();
