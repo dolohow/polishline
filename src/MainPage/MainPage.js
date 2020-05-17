@@ -10,6 +10,7 @@ import Loader from '../Loader';
 import SEO from '../SEO';
 
 import './MainPage.scss';
+import '../NotFound.scss';
 
 const GET_ALL_POSTS = gql`
 query posts($tag: String, $cursor: String) {
@@ -49,6 +50,8 @@ function MainPage() {
     const { data, loading, fetchMore } = useQuery(GET_ALL_POSTS, { variables: { tag } });
 
     if (loading) return <Loader />;
+    if (!data.posts.pageInfo)
+        return <div className="NotFound">Nie ma jeszcze żadnego wpisu</div>
 
     const loadMorePosts = () => fetchMore({
         variables: { cursor: data.posts.pageInfo.endCursor },
