@@ -75,8 +75,8 @@ function MainPage() {
     return (
         <>
             <SEO
-                pageTitle={tag ? `${tag} | ${process.env.REACT_APP_SITE_NAME}` : process.env.REACT_APP_SITE_NAME}
-                title={tag ? `${tag} | ${process.env.REACT_APP_SITE_NAME}` : process.env.REACT_APP_SITE_NAME}
+                pageTitle={tag ? `${tag} | ${data.generalSettings.title}` : data.generalSettings.title}
+                title={tag ? `${tag} | ${data.generalSettings.title}` : data.generalSettings.title}
                 description={data.generalSettings.description}
             />
             <div className="MainPage">

@@ -37,6 +37,9 @@ const GET_POST = gql`
                 description
             }
         }
+        generalSettings {
+            title
+        }
     }
 `;
 
@@ -112,12 +115,10 @@ function Post() {
         background: `url(${data.post.featuredImage.sourceUrl}) center center / cover no-repeat`,
     };
 
-
-
     return (
         <>
             <SEO
-                pageTitle={`${data.post.title} | ${process.env.REACT_APP_SITE_NAME}`}
+                pageTitle={`${data.post.title} | ${data.generalSettings.title}`}
                 title={data.post.title}
                 description={data.post.meta.description}
                 image={data.post.featuredImage.sourceUrl}
