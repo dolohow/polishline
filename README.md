@@ -32,15 +32,10 @@ To build for production use:
 `npm run-script build`
 
 To develop:
+`npm start:dev`
+
+To run in production in SSR powered express server:
 `npm start`
-
-In addition I am using `rendertron` to render page for crawlers that do
-not support rendering `JavaScript` like facebook one etc.  It is
-basically a middleware server application that can be put behind reverse
-proxy (Apache, nginx etc.) and will render webpage in Chromium.
-
-To use it, start the server.
-`node ssr-server.js`
 
 
 ## TODO
