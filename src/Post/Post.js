@@ -43,32 +43,32 @@ const GET_POST = gql`
     }
 `;
 
-function SocialMediaShare() {
+function SocialMediaShare({ url }) {
     const socialButtons = [
         {
-            href: `fb-messenger://share?link=${window.location.href}`,
+            href: `fb-messenger://share?link=${url}`,
             alt: "messenger",
             src: "/social/messenger.svg",
             hideOnDesktop: true
         },
         {
-            href: `whatsapp://send?text=${window.location.href}`,
+            href: `whatsapp://send?text=${url}`,
             alt: "whatsapp",
             src: "/social/whatsapp.svg",
             hideOnDesktop: true
         },
         {
-            href: `https://facebook.com/sharer/sharer.php?u=${window.location.href}`,
+            href: `https://facebook.com/sharer/sharer.php?u=${url}`,
             alt: "facebook",
             src: "/social/facebook.svg"
         },
         {
-            href: `mailto:?&body=${window.location.href}`,
+            href: `mailto:?&body=${url}`,
             alt: "email",
             src: "/social/email.svg"
         },
         {
-            href: `https://twitter.com/home?status=${window.location.href}`,
+            href: `https://twitter.com/home?status=${url}`,
             alt: "twitter",
             src: "/social/twitter.svg"
         },
@@ -85,9 +85,11 @@ function SocialMediaShare() {
     );
 }
 
-function Post() {
+function Post({ location }) {
     const { slug } = useParams();
     const { loading, data } = useQuery(GET_POST, { variables: { slug } });
+    const { pathname, hash, search } = location;
+    const currentURL = `https://${process.env.REACT_APP_HOSTNAME}${pathname}${hash}${search}`;
 
     useEffect(() => {
         const galleries = document.querySelectorAll('.wp-block-gallery');
@@ -148,13 +150,13 @@ function Post() {
                 <hr />
                 <div className="Post-social-media">
                     <span>Udostępnij</span>
-                    <SocialMediaShare />
+                    <SocialMediaShare url={currentURL} />
                 </div>
                 <hr />
                 <div className="Post-comments">
                     {data.post.commentStatus === "open" ?
                         <div>
-                            <Comments href={`https://${window.location.hostname}/${slug}`} />
+                            <Comments href={`https://${process.env.REACT_APP_HOSTNAME}/${slug}`} />
                         </div>
                         :
                         <div className="Post-comments-disabled">Komentarze zostały wyłaczone</div>
