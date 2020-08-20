@@ -72,7 +72,7 @@ function Header() {
             <div ref={header} className="Header">
                 <div className="logo">
                     <Link onClick={closeMenu} to="/">
-                        <img alt="logo" src="/mountains.svg"></img>
+                        <img alt="logo" src="/logo.png"></img>
                     </Link>
                 </div>
                 <div className={`hamburger ${showMenu ? "change" : ""}`} onClick={toggleMenu}>

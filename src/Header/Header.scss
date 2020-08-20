@@ -23,10 +23,12 @@ header {
   .logo {
     left: 50%;
     position: absolute;
-    top: 17px;
-    height: 32px;
-    width: 32px;
+    top: 10px;
+    width: 43px;
     transform: translate3d(-50%, 0, 0);
+    img {
+      width: 43px;
+    }
   }
 
   .hamburger {
