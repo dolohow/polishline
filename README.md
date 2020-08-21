@@ -13,13 +13,9 @@ Basically all the parts that create https://polishline.pl website.
 You need to have a working Wordpress installation with following
 plugins:
 
- * Advanced Custom Fields
- * Headless Mode (optional)
  * WP GraphQL
- * WPGraphQL for Advanced Custom Fields
-
-You will also need to add custom field for `Post` `meta.description`
-that is used for setting `<meta>` tag with the same name.
+ * WPGraphql SEO
+ * Yoast SEO
 
 ### Frontend
 
