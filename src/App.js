@@ -8,6 +8,7 @@ import Header from './Header/Header';
 import MainPage from './MainPage/MainPage';
 import Footer from './Footer/Footer';
 import Post from './Post/Post';
+import Product from './Product/Product';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={MainPage} />
         <Route path="/tag/:tag/" component={MainPage} />
+        <Route path="/product/:slug/" component={Product} />
         <Route path="/:slug/" component={Post} />
       </Switch>
       <Footer />
