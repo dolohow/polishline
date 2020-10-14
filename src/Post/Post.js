@@ -43,7 +43,9 @@ const GET_POST = gql`
                 }
             }
             featuredImage {
+              node {
                 sourceUrl(size: MEDIUM_LARGE)
+              }
             }
         }
     }
@@ -120,7 +122,7 @@ function Post({ location }) {
   if (!data.post) return <NotFound />;
 
   const styles = {
-    background: `url(${data.post.featuredImage.sourceUrl}) center center / cover no-repeat`,
+    background: `url(${data.post.featuredImage.node.sourceUrl}) center center / cover no-repeat`,
   };
 
   return (

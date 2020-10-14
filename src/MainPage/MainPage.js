@@ -24,7 +24,9 @@ query posts($tag: String, $cursor: String) {
         date
         slug
         featuredImage {
-          sourceUrl(size: MEDIUM_LARGE)
+          node {
+            sourceUrl(size: MEDIUM_LARGE)
+          }
         }
       }
     }

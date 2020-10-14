@@ -8,7 +8,7 @@ import './Article.scss';
 class Article extends React.Component {
     render() {
         const styles = {
-            background: `url(${this.props.data.featuredImage.sourceUrl}) center center / cover no-repeat`,
+            background: `url(${this.props.data.featuredImage.node.sourceUrl}) center center / cover no-repeat`,
         };
         return (
             <article className="Article">
