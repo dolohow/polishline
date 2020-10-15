@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
-import { gql } from 'apollo-boost';
+import { useQuery, gql } from '@apollo/client';
 
 import Search from './Search';
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { useQuery } from '@apollo/client';
+import { useQuery, gql } from '@apollo/client';
 import { useParams } from 'react-router-dom';
-import { gql } from 'apollo-boost';
 
 import Article from './Article';
 

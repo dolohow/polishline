@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useQuery } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import { Link, useParams } from 'react-router-dom';
 import ImageGallery from 'react-image-gallery';
-import { gql } from 'apollo-boost';
 import { find, remove } from 'lodash';
 
 import NotFound from '../NotFound';
@@ -13,16 +12,16 @@ import './Product.scss';
 const GET_PRODUCT = gql`
   query product($slug: ID!) {
   product(id: $slug, idType: SLUG) {
-    ... on VariableProduct {
-      name
-      description
-      galleryImages {
-        nodes {
-          mediaItemUrl
-          srcSet(size: WOOCOMMERCE_SINGLE)
-          sourceUrl(size: WOOCOMMERCE_GALLERY_THUMBNAIL)
-        }
+    name
+    description
+    galleryImages {
+      nodes {
+        mediaItemUrl
+        srcSet(size: WOOCOMMERCE_SINGLE)
+        sourceUrl(size: WOOCOMMERCE_GALLERY_THUMBNAIL)
       }
+    }
+    ... on VariableProduct {
       defaultAttributes {
         nodes {
           name
@@ -120,6 +119,10 @@ function Product() {
   useEffect(() => {
     if (!data || !data.product) return;
 
+    if (!data.product.variations) {
+      return setSelectedVariant(data);
+    }
+
     const defaultVariant = data.product.defaultAttributes.nodes;
     setSelectedVariant(find(data.product.variations.nodes, {
       attributes: {
@@ -182,6 +185,7 @@ function Product() {
       <hr />
 
       <form>
+        {data.product.defaultAttributes ?
         <div className="Product-variants">
           <ul>
             <li><span>Kolor</span>
@@ -200,8 +204,10 @@ function Product() {
               </ol>
             </li>
           </ul>
+          <hr />
         </div>
-        <hr />
+        : null
+        }
         <Quantity />
         <button onSubmit={handleSubmit} className="Product-add-to-cart" type="submit" disabled={!isAvailable()}>Dodaj do koszyka</button>
       </form>

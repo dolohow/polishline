@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom';
 import { Link, useParams } from 'react-router-dom';
 import { Comments } from 'react-facebook';
 import ImageGallery from 'react-image-gallery';
-import { useQuery } from '@apollo/client';
-import { gql } from 'apollo-boost';
+import { useQuery, gql } from '@apollo/client';
 
 
 import DateComponent from '../DateComponent';

@@ -5,11 +5,8 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter as Router } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { ApolloClient } from 'apollo-boost';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloProvider } from '@apollo/client';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { getDataFromTree } from '@apollo/client/react/ssr';
-import { HttpLink } from 'apollo-link-http';
 import Html from './Html';
 import App from './src/App';
 import assets from './assets';
@@ -21,9 +18,7 @@ app.use(express.static(path.resolve(__dirname, '../build'), { index: false }));
 app.use(async (req, res) => {
   const client = new ApolloClient({
     ssrMode: true,
-    link: new HttpLink({
-      uri: process.env.REACT_APP_GRAPHQL_URL,
-    }),
+    uri: process.env.REACT_APP_GRAPHQL_URL,
     cache: new InMemoryCache(),
   });
   const app = (
