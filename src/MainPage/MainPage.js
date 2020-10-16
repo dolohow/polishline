@@ -63,18 +63,6 @@ function MainPage() {
 
   const loadMorePosts = () => fetchMore({
     variables: { cursor: data.posts.pageInfo.endCursor },
-    updateQuery: (previousResult, { fetchMoreResult }) => {
-      const newEdges = fetchMoreResult.posts.edges;
-      const pageInfo = fetchMoreResult.posts.pageInfo;
-
-      return {
-        posts: {
-          __typename: previousResult.posts.__typename,
-          edges: [...previousResult.posts.edges, ...newEdges],
-          pageInfo
-        }
-      };
-    }
   })
 
   return (
