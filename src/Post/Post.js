@@ -121,7 +121,7 @@ function Post({ location }) {
   if (!data.post) return <NotFound />;
 
   const styles = {
-    background: `url(${data.post.featuredImage.node.sourceUrl}) center center / cover no-repeat`,
+    background: `url(${data.post.featuredImage?.node?.sourceUrl}) center center / cover no-repeat`,
   };
 
   return (
