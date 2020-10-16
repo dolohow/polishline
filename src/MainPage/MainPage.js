@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import Article from './Article';
 
 import Loader from '../Loader';
+import Spinner from '../Spinner';
 import SEO from '../SEO';
 
 import './MainPage.scss';
@@ -51,14 +52,6 @@ query posts($tag: String, $cursor: String) {
   }
 }
 `;
-
-function Spinner() {
-  return (
-    <div style={{ width: "100%", marginTop: "15px" }}>
-      <div className="simple-spinner"></div>
-    </div>
-  );
-}
 
 function MainPage() {
   const { tag } = useParams();
