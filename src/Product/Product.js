@@ -21,6 +21,10 @@ const GET_PRODUCT = gql`
         sourceUrl(size: WOOCOMMERCE_GALLERY_THUMBNAIL)
       }
     }
+    ... on SimpleProduct {
+      price
+      stockStatus
+    }
     ... on VariableProduct {
       defaultAttributes {
         nodes {
@@ -120,10 +124,15 @@ function Product() {
     if (!data || !data.product) return;
 
     if (!data.product.variations) {
-      return setSelectedVariant(data);
+      return setSelectedVariant(data.product);
     }
 
-    const defaultVariant = data.product.defaultAttributes.nodes;
+    const defaultVariant = data.product.defaultAttributes?.nodes;
+
+    if (!defaultVariant) {
+      return setSelectedVariant(data.product.variations.nodes[0])
+    }
+
     setSelectedVariant(find(data.product.variations.nodes, {
       attributes: {
         nodes: [...defaultVariant]
@@ -185,7 +194,7 @@ function Product() {
       <hr />
 
       <form>
-        {data.product.defaultAttributes ?
+        {data.product.variations?.nodes.length ?
         <div className="Product-variants">
           <ul>
             <li><span>Kolor</span>
