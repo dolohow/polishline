@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { Link, useParams } from 'react-router-dom';
 import ImageGallery from 'react-image-gallery';
@@ -34,6 +34,7 @@ const GET_PRODUCT = gql`
       }
       variations {
         nodes {
+          name
           price
           stockStatus
           image {
@@ -115,10 +116,46 @@ function Quantity() {
   )
 }
 
+function Modal({ name, price, imgSrc, onButtonClose }) {
+  const modal = useRef(null);
+
+  useEffect(() => {
+    modal.current.classList.add('Product-checkout-modal-show');
+  })
+
+  return (
+    <div ref={modal} className="Product-checkout-modal">
+      <div className="Product-checkout-modal-header">
+        <button onClick={onButtonClose}>
+          <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 0 16.351 16.351" width="16px"><clipPath><path d="m0 0h16.351v16.351h-16.351z"></path></clipPath><g clipPath="url(#a)" fill="currentColor"><path d="m0 0h21.96v1.165h-21.96z" transform="matrix(.70710678 .70710678 -.70710678 .70710678 .824243 .000101)"></path><path d="m0 0h21.96v1.165h-21.96z" transform="matrix(-.70710678 .70710678 -.70710678 -.70710678 16.350981 .823202)"></path></g></svg>
+        </button>
+      </div>
+      <div className="Product-checkout-modal-content">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" height="38px" viewBox="0 0 37.212 37.213" width="38px"><path d="m16.7 28.463-7.9-8.039 3.256-3.424 4.644 4.618 9.91-10.655 3.262 3.421-6.242 6.671-2.083 2.226z" fill="currentColor" transform="translate(-.704 -.71)"></path><ellipse cx="18.606" cy="18.606" fill="none" rx="17.106" ry="17.106" stroke="currentColor" strokeWidth="3"></ellipse></svg>
+        </div>
+        <div>Dodano do koszyka</div>
+        <div className="Product-checkout-modal-content-product">
+          <img alt="zdjęcie produktu" src={imgSrc} />
+          <div className="Product-checkout-modal-content-product-details">
+            <div>{name}</div>
+            <div>{price}</div>
+          </div>
+        </div>
+        <div className="Product-checkout-modal-content-actions">
+          <button>Do kasy</button>
+          <button className="outline">Zobacz koszyk</button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function Product() {
   const { slug } = useParams();
   const { error, loading, data } = useQuery(GET_PRODUCT, { variables: { slug } });
   const [selectedVariant, setSelectedVariant] = useState({});
+  const [showProductModal, setShowProductModal] = useState(false);
 
   useEffect(() => {
     if (!data || !data.product) return;
@@ -167,13 +204,18 @@ function Product() {
 
   const handleSubmit = e => {
     e.preventDefault();
+    setShowProductModal(true);
   }
 
   if (loading) return <Loader />;
   if (error) return <NotFound />;
 
   return <>
-    <div className="Product">
+    {showProductModal ?
+      <Modal onButtonClose={() => setShowProductModal(false)} name={selectedVariant.name} price={selectedVariant.price} imgSrc={selectedVariant.image?.sourceUrl} />
+      : null
+    }
+    <div className={`Product ${showProductModal ? 'blur' : ''}`}>
       <ImageGallery
         showFullscreenButton={false}
         showPlayButton={false}
@@ -193,32 +235,32 @@ function Product() {
 
       <hr />
 
-      <form>
+      <form onSubmit={handleSubmit}>
         {data.product.variations?.nodes.length ?
-        <div className="Product-variants">
-          <ul>
-            <li><span>Kolor</span>
-              <ol>
-                {data.product.paColors.nodes.map((val, key) =>
-                  <Color onChange={(e) => changeVariant('pa_color', e.target.value)} selected={val.name === getVariantColor()} key={key} color={val.slug} value={val.name} />
-                )}
-              </ol>
-            </li>
-            <li>
-              <span>Rozmiar</span>
-              <ol>
-                {data.product.paSizes.nodes.map((val, key) =>
-                  <Size key={key} value={val.name} selected={val.name === getVariantSize()} onChange={(e) => changeVariant('pa_size', e.target.value)} />
-                )}
-              </ol>
-            </li>
-          </ul>
-          <hr />
-        </div>
-        : null
+          <div className="Product-variants">
+            <ul>
+              <li><span>Kolor</span>
+                <ol>
+                  {data.product.paColors.nodes.map((val, key) =>
+                    <Color onChange={(e) => changeVariant('pa_color', e.target.value)} selected={val.name === getVariantColor()} key={key} color={val.slug} value={val.name} />
+                  )}
+                </ol>
+              </li>
+              <li>
+                <span>Rozmiar</span>
+                <ol>
+                  {data.product.paSizes.nodes.map((val, key) =>
+                    <Size key={key} value={val.name} selected={val.name === getVariantSize()} onChange={(e) => changeVariant('pa_size', e.target.value)} />
+                  )}
+                </ol>
+              </li>
+            </ul>
+            <hr />
+          </div>
+          : null
         }
         <Quantity />
-        <button onSubmit={handleSubmit} className="Product-add-to-cart" type="submit" disabled={!isAvailable()}>Dodaj do koszyka</button>
+        <button className="Product-add-to-cart" type="submit" disabled={!isAvailable()}>Dodaj do koszyka</button>
       </form>
 
       <div className="Product-description">
