@@ -1,0 +1,19 @@
+.Cart {
+  font-family: "Montserrat", sans-serif;
+  margin: 0 17px 50px;
+
+  h1 {
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 1.125rem;
+  }
+  
+  &-empty {
+    text-align: center;
+    margin-top: 64px;
+    &-text {
+    margin-top: 25px;
+      margin-bottom: 234px;
+    } 
+  }
+}

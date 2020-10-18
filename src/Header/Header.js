@@ -78,8 +78,10 @@ function Header() {
           <div className="bar3"></div>
         </div>
         <div className="cart">
-          <img alt="koszyk" src="/shopping-cart.svg"></img>
-          <div className="cart-badge">{cartItemsCount}</div>
+          <Link to='/store/cart'>
+            <img alt="koszyk" src="/shopping-cart.svg"></img>
+            <div className="cart-badge">{cartItemsCount}</div>
+          </Link>
         </div>
         <div className={`menu ${showMenu ? 'menu-show' : ""}`}>
           <Search onLinkClicked={closeMenu} />

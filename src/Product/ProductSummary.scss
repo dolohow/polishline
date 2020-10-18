@@ -1,0 +1,16 @@
+.ProductSummary {
+  display: flex;
+  margin: 40px 0;
+  align-items: center;
+  img {
+    max-width: 33%;
+  }
+  &-details {
+    text-align: left;
+    padding: 0 0 0 20px;
+    font-size: 0.875rem;
+    :nth-child(2) {
+      font-weight: 700;
+    }
+  }
+}

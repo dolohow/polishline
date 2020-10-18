@@ -7,16 +7,23 @@ import { find, remove } from 'lodash';
 
 import { addToCart } from '../Cart/cartSlice';
 
+import ProductSummary from './ProductSummary';
+
+import Button from '../Button';
 import NotFound from '../NotFound';
 import Loader from '../Loader';
 
 import './Product.scss';
+
 
 const GET_PRODUCT = gql`
   query product($slug: ID!) {
   product(id: $slug, idType: SLUG) {
     name
     description
+    image {
+      sourceUrl(size: WOOCOMMERCE_SINGLE)
+    }
     galleryImages {
       nodes {
         mediaItemUrl
@@ -138,16 +145,12 @@ function Modal({ name, price, imgSrc, onButtonClose }) {
           <svg xmlns="http://www.w3.org/2000/svg" height="38px" viewBox="0 0 37.212 37.213" width="38px"><path d="m16.7 28.463-7.9-8.039 3.256-3.424 4.644 4.618 9.91-10.655 3.262 3.421-6.242 6.671-2.083 2.226z" fill="currentColor" transform="translate(-.704 -.71)"></path><ellipse cx="18.606" cy="18.606" fill="none" rx="17.106" ry="17.106" stroke="currentColor" strokeWidth="3"></ellipse></svg>
         </div>
         <div>Dodano do koszyka</div>
-        <div className="Product-checkout-modal-content-product">
-          <img alt="zdjęcie produktu" src={imgSrc} />
-          <div className="Product-checkout-modal-content-product-details">
-            <div>{name}</div>
-            <div>{price}</div>
-          </div>
-        </div>
+        <ProductSummary name={name} price={price} imgSrc={imgSrc}/>
         <div className="Product-checkout-modal-content-actions">
           <button>Do kasy</button>
-          <button className="outline">Zobacz koszyk</button>
+          <Link to="/store/cart">
+            <button className="outline">Zobacz koszyk</button>
+          </Link>
         </div>
       </div>
     </div>
@@ -264,7 +267,7 @@ function Product() {
           : null
         }
         <Quantity />
-        <button className="Product-add-to-cart" type="submit" disabled={!isAvailable()}>Dodaj do koszyka</button>
+        <Button type="submit" disabled={!isAvailable()}>Dodaj do koszyka</Button>
       </form>
 
       <div className="Product-description">

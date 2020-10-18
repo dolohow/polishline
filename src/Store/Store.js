@@ -45,7 +45,6 @@ function Store() {
     variables: { cursor: data.products.pageInfo.endCursor },
   })
 
-  console.log(data.products);
   return (
     <>
       <InfiniteScroll
