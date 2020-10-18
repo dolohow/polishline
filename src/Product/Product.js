@@ -1,8 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { gql, useQuery } from '@apollo/client';
 import { Link, useParams } from 'react-router-dom';
 import ImageGallery from 'react-image-gallery';
 import { find, remove } from 'lodash';
+
+import { addToCart } from '../Cart/cartSlice';
 
 import NotFound from '../NotFound';
 import Loader from '../Loader';
@@ -156,6 +159,7 @@ function Product() {
   const { error, loading, data } = useQuery(GET_PRODUCT, { variables: { slug } });
   const [selectedVariant, setSelectedVariant] = useState({});
   const [showProductModal, setShowProductModal] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!data || !data.product) return;
@@ -201,10 +205,10 @@ function Product() {
   const isAvailable = () => {
     return selectedVariant.stockStatus === 'IN_STOCK';
   }
-
   const handleSubmit = e => {
     e.preventDefault();
     setShowProductModal(true);
+    dispatch(addToCart(selectedVariant));
   }
 
   if (loading) return <Loader />;

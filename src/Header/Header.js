@@ -1,8 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 
 import Search from './Search';
+
+import { selectCartItemsCount } from '../Cart/cartSlice';
 
 import './Header.scss';
 
@@ -25,6 +28,7 @@ function Header() {
   const header = useRef(null)
   const [showMenu, setMenuState] = useState(false);
   const { loading, data } = useQuery(GET_MENU_ITEMS);
+  const cartItemsCount = useSelector(selectCartItemsCount);
 
 
   useEffect(() => {
@@ -73,8 +77,9 @@ function Header() {
           <div className="bar2"></div>
           <div className="bar3"></div>
         </div>
-        <div className="search">
+        <div className="cart">
           <img alt="koszyk" src="/shopping-cart.svg"></img>
+          <div className="cart-badge">{cartItemsCount}</div>
         </div>
         <div className={`menu ${showMenu ? 'menu-show' : ""}`}>
           <Search onLinkClicked={closeMenu} />
