@@ -16,7 +16,8 @@
     "react-image-gallery": "^1.0.8",
     "react-infinite-scroller": "^1.2.4",
     "react-redux": "^7.2.1",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "redux-persist": "^6.0.0"
   },
   "scripts": {
     "prebuild": "INLINE_RUNTIME_CHUNK=false react-scripts build",
