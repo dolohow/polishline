@@ -8,6 +8,7 @@ import { find, remove } from 'lodash';
 import { addToCart } from '../Cart/cartSlice';
 
 import ProductSummary from './ProductSummary';
+import Quantity from './Quantity';
 
 import Button from '../Button';
 import NotFound from '../NotFound';
@@ -105,27 +106,6 @@ function Size({ value, selected, onChange }) {
   )
 }
 
-function Quantity() {
-  const [quantity, setQuantity] = useState(1);
-
-  const updateQuantity = value => {
-    const val = parseInt(value);
-    if (isNaN(val))
-      return
-    if (value < 1)
-      return;
-    setQuantity(val);
-  }
-
-  return (
-    <div className="Product-quantity">
-      <button onClick={() => updateQuantity(quantity - 1)} className="decrease" type="button" >-</button>
-      <input onChange={(e) => updateQuantity(e.target.value)} type="number" min="1" value={quantity}></input>
-      <button className="increase" type="button" onClick={() => updateQuantity(quantity + 1)}>+</button>
-    </div>
-  )
-}
-
 function Modal({ name, price, imgSrc, onButtonClose }) {
   const modal = useRef(null);
 
@@ -162,6 +142,7 @@ function Product() {
   const { error, loading, data } = useQuery(GET_PRODUCT, { variables: { slug } });
   const [selectedVariant, setSelectedVariant] = useState({});
   const [showProductModal, setShowProductModal] = useState(false);
+  const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -211,7 +192,7 @@ function Product() {
   const handleSubmit = e => {
     e.preventDefault();
     setShowProductModal(true);
-    dispatch(addToCart(selectedVariant));
+    dispatch(addToCart({product: selectedVariant, quantity}));
   }
 
   if (loading) return <Loader />;
@@ -266,7 +247,7 @@ function Product() {
           </div>
           : null
         }
-        <Quantity />
+        <Quantity onChange={(value) => setQuantity(value)} />
         <Button type="submit" disabled={!isAvailable()}>Dodaj do koszyka</Button>
       </form>
 

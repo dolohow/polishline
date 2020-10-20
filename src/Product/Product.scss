@@ -87,40 +87,6 @@
     }
   }
 
-  &-quantity {
-    justify-content: center;
-    margin: 30px auto;
-    display: flex;
-    width: 136px;
-    height: 45px;
-    input {
-      width: 100%;
-      font-size: 1.1rem;
-      font-weight: 500;
-      border-radius: 0;
-      border: 1px solid #e2e2e2;
-      border-left: 0;
-      border-right: 0;
-      text-align: center;
-    }
-    .increase {
-      border-left: 0;
-    }
-    .decrease {
-      border-right: 0;
-    }
-    button {
-      padding: 0 1rem 0 1rem;
-      background: #ffffff;
-      color: #212529;
-      cursor: pointer;
-      font-size: 1.25rem;
-      border: 1px solid #e2e2e2;
-      font-weight: 500;
-      border-radius: 0;
-    }
-  }
-
   &-description {
     padding: 1.5rem 0;
     text-align: left;

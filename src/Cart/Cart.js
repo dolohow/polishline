@@ -18,8 +18,8 @@ function Cart() {
         <h1>Twój koszyk</h1>
         {cartItems.length ?
           <div>
-            {cartItems.map((val, key) =>
-              <ProductSummary key={key} name={val.name} price={val.price} imgSrc={val.image.sourceUrl} />
+            {cartItems.map(({ product, quantity }, key) =>
+                  <ProductSummary key={key} name={product.name} price={product.price} imgSrc={product.image.sourceUrl} />
             )}
           </div>
           :
